@@ -760,6 +760,21 @@ td:nth-child(7) {
   line-height: 1;
 }
 
+/* Footer theme toggle (for iframe context where header is hidden) */
+.theme-toggle-footer {
+  display: inline-flex;
+  margin-left: 12px;
+  background: var(--bg-container);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.theme-toggle-footer:hover {
+  background: var(--bg-table-row-hover);
+  transform: scale(1.05);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   body:not(.in-iframe) {
@@ -1011,7 +1026,7 @@ const ViewerLib = {
 
     apis.forEach(api => {
       const apiKey = api.canonical_name || api.api_name;
-      const parsedVersion = this.parseVersion(api.version);
+      const parsedVersion = this.parseVersion(api.api_version);
 
       if (!parsedVersion) {
         // Keep APIs without valid versions
@@ -1043,7 +1058,7 @@ const ViewerLib = {
 
       // Sort by patch version (descending), then by date (descending)
       versions.sort((a, b) => {
-        const versionCompare = this.compareVersions(b.version, a.version);
+        const versionCompare = this.compareVersions(b.api_version, a.api_version);
         if (versionCompare !== 0) {
           return versionCompare;
         }
@@ -1105,10 +1120,10 @@ const ViewerLib = {
       }
 
       // Version range filters
-      if (criteria.versionMin && this.compareVersions(api.version, criteria.versionMin) < 0) {
+      if (criteria.versionMin && this.compareVersions(api.api_version, criteria.versionMin) < 0) {
         return false;
       }
-      if (criteria.versionMax && this.compareVersions(api.version, criteria.versionMax) > 0) {
+      if (criteria.versionMax && this.compareVersions(api.api_version, criteria.versionMax) > 0) {
         return false;
       }
 
@@ -1128,7 +1143,7 @@ const ViewerLib = {
     const lowerQuery = query.toLowerCase();
     return apis.filter(api =>
       api.api_name.toLowerCase().includes(lowerQuery) ||
-      (api.title && api.title.toLowerCase().includes(lowerQuery)) ||
+      (api.api_title && api.api_title.toLowerCase().includes(lowerQuery)) ||
       (api.portfolio_category && api.portfolio_category.toLowerCase().includes(lowerQuery)) ||
       (api.repository && api.repository.toLowerCase().includes(lowerQuery))
     );
@@ -1147,7 +1162,7 @@ const ViewerLib = {
       let bVal = b[field];
 
       // Handle version fields specially
-      if (field === 'version') {
+      if (field === 'api_version') {
         return this.compareVersions(aVal, bVal);
       }
 
@@ -1187,7 +1202,37 @@ const ViewerLib = {
   },
 
   /**
-   * Render maturity badge HTML
+   * Compute API status from version string
+   * Status progression: alpha -> rc -> public (initial or stable)
+   * @param {string} version - API version string (e.g., "0.5.0-alpha.1", "1.0.0-rc.2", "1.0.0")
+   * @returns {string} API status: 'alpha', 'rc', 'initial', 'stable'
+   */
+  getApiStatus: function (version) {
+    if (!version) return 'unknown';
+    if (version.includes('-alpha.')) return 'alpha';
+    if (version.includes('-rc.')) return 'rc';
+    // Public: check initial (0.x) vs stable (1.x+)
+    if (version.match(/^0\./)) return 'initial';
+    return 'stable';
+  },
+
+  /**
+   * Render API status badge HTML
+   * @param {string} status - API status from getApiStatus()
+   * @returns {string} HTML string
+   */
+  renderApiStatusBadge: function (status) {
+    const badges = {
+      'stable': '<span class="badge badge-stable">Stable</span>',
+      'initial': '<span class="badge badge-initial">Initial</span>',
+      'rc': '<span class="badge badge-rc">RC</span>',
+      'alpha': '<span class="badge badge-alpha">Alpha</span>'
+    };
+    return badges[status] || `<span class="badge badge-unknown">${status}</span>`;
+  },
+
+  /**
+   * Render maturity badge HTML (deprecated - use renderApiStatusBadge)
    * @param {string} maturity - Maturity level
    * @returns {string} HTML string
    */
@@ -1196,8 +1241,7 @@ const ViewerLib = {
       'stable': '<span class="badge badge-stable">Stable</span>',
       'initial': '<span class="badge badge-initial">Initial</span>',
       'rc': '<span class="badge badge-rc">RC</span>',
-      'alpha': '<span class="badge badge-alpha">Alpha</span>',
-      'beta': '<span class="badge badge-beta">Beta</span>'
+      'alpha': '<span class="badge badge-alpha">Alpha</span>'
     };
     return badges[maturity] || `<span class="badge badge-unknown">${maturity}</span>`;
   },
@@ -1217,11 +1261,11 @@ const ViewerLib = {
    * @param {string} filename - Output filename
    */
   exportToCSV: function (apis, filename = 'camara-apis.csv') {
-    const headers = ['API Name', 'Title', 'Version', 'Category', 'Maturity', 'Repository', 'New', 'Release Tag'];
+    const headers = ['API Name', 'API Title', 'API Version', 'Category', 'Maturity', 'Repository', 'New', 'Release Tag'];
     const rows = apis.map(api => [
       api.api_name || '',
-      api.title || '',
-      api.version || '',
+      api.api_title || '',
+      api.api_version || '',
       api.portfolio_category || '',
       api.maturity || '',
       api.repository || '',
@@ -1239,7 +1283,22 @@ const ViewerLib = {
   // Theme Toggling Logic
   // Theme Toggling Logic (3-State: Auto -> Light -> Dark)
   initThemeToggle: function (scope = 'default') {
-    const themeToggleBtn = document.getElementById('theme-toggle');
+    let themeToggleBtn = document.getElementById('theme-toggle');
+
+    // In iframe: inject toggle into footer (header is hidden in iframe)
+    if (this.isInIframe()) {
+      const footerMetadata = document.getElementById('footer-metadata');
+      if (footerMetadata) {
+        const footerToggle = document.createElement('button');
+        footerToggle.id = 'theme-toggle-footer';
+        footerToggle.className = 'theme-toggle-btn theme-toggle-footer';
+        footerToggle.setAttribute('aria-label', 'Toggle Dark Mode');
+        footerToggle.innerHTML = '<span class="theme-icon">🌗</span>';
+        footerMetadata.appendChild(footerToggle);
+        themeToggleBtn = footerToggle;
+      }
+    }
+
     if (!themeToggleBtn) return;
 
     const storageKey = `camara-theme-${scope}`;
@@ -1467,7 +1526,7 @@ const ViewerLib = {
     // Embedded release data (fully enriched from workflow)
     const RELEASE_DATA = {
   "metadata": {
-    "generated": "2025-12-17T20:52:36.085Z",
+    "generated": "2026-01-14T00:21:05.629Z",
     "meta_release": "Spring25",
     "source": "Release Collector v3",
     "landscape_version": "1.1.0"
@@ -1733,12 +1792,13 @@ const ViewerLib = {
       "release_date": "2025-03-10T16:50:34Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/BlockchainPublicAddress/releases/tag/r1.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "blockchain-public-address",
           "file_name": "blockchain-public-address",
-          "version": "0.2.0",
-          "title": "Blockchain Public Address",
+          "api_version": "0.2.0",
+          "api_title": "Blockchain Public Address",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Payments and Charging",
@@ -1758,12 +1818,13 @@ const ViewerLib = {
       "release_date": "2025-03-06T08:29:28Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/CallForwardingSignal/releases/tag/r2.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "call-forwarding-signal",
           "file_name": "call-forwarding-signal",
-          "version": "0.3.0",
-          "title": "Call Forwarding Signal",
+          "api_version": "0.3.0",
+          "api_title": "Call Forwarding Signal",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -1783,12 +1844,13 @@ const ViewerLib = {
       "release_date": "2025-03-11T11:47:51Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/CarrierBillingCheckOut/releases/tag/r2.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "carrier-billing-refund",
           "file_name": "carrier-billing-refund",
-          "version": "0.2.0",
-          "title": "Carrier Billing Refunds",
+          "api_version": "0.2.0",
+          "api_title": "Carrier Billing Refunds",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Payments and Charging",
@@ -1803,8 +1865,8 @@ const ViewerLib = {
         {
           "api_name": "carrier-billing",
           "file_name": "carrier-billing",
-          "version": "0.4.0",
-          "title": "Carrier Billing",
+          "api_version": "0.4.0",
+          "api_title": "Carrier Billing",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Payments and Charging",
@@ -1824,12 +1886,13 @@ const ViewerLib = {
       "release_date": "2025-03-14T16:33:24Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/ConnectivityInsights/releases/tag/r2.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "application-profiles",
           "file_name": "application-profiles",
-          "version": "0.4.0",
-          "title": "Connectivity Insights - Application Profiles",
+          "api_version": "0.4.0",
+          "api_title": "Connectivity Insights - Application Profiles",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Communication Quality",
@@ -1844,8 +1907,8 @@ const ViewerLib = {
         {
           "api_name": "connectivity-insights-subscriptions",
           "file_name": "connectivity-insights-subscriptions",
-          "version": "0.5.0",
-          "title": "Connectivity Insights Subscriptions",
+          "api_version": "0.5.0",
+          "api_title": "Connectivity Insights Subscriptions",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Communication Quality",
@@ -1860,8 +1923,8 @@ const ViewerLib = {
         {
           "api_name": "connectivity-insights",
           "file_name": "connectivity-insights",
-          "version": "0.5.0",
-          "title": "Connectivity Insights",
+          "api_version": "0.5.0",
+          "api_title": "Connectivity Insights",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Communication Quality",
@@ -1881,12 +1944,13 @@ const ViewerLib = {
       "release_date": "2025-03-10T18:07:26Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/CustomerInsights/releases/tag/r1.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "customer-insights",
           "file_name": "customer-insights",
-          "version": "0.1.0",
-          "title": "Customer Insights",
+          "api_version": "0.1.0",
+          "api_title": "Customer Insights",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -1906,12 +1970,13 @@ const ViewerLib = {
       "release_date": "2025-03-20T16:54:07Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/CustomerInsights/releases/tag/r1.3",
+      "release_type": "maintenance-release",
       "apis": [
         {
           "api_name": "customer-insights",
           "file_name": "customer-insights",
-          "version": "0.1.1",
-          "title": "Customer Insights",
+          "api_version": "0.1.1",
+          "api_title": "Customer Insights",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -1931,12 +1996,13 @@ const ViewerLib = {
       "release_date": "2025-03-13T18:05:07Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/DeviceIdentifier/releases/tag/r1.3",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "device-identifier",
           "file_name": "device-identifier",
-          "version": "0.2.0",
-          "title": "CAMARA Mobile Device Identifier",
+          "api_version": "0.2.0",
+          "api_title": "CAMARA Mobile Device Identifier",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -1956,12 +2022,13 @@ const ViewerLib = {
       "release_date": "2025-03-10T13:54:47Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/DeviceLocation/releases/tag/r2.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "geofencing-subscriptions",
           "file_name": "geofencing-subscriptions",
-          "version": "0.4.0",
-          "title": "Device Geofencing Subscriptions",
+          "api_version": "0.4.0",
+          "api_title": "Device Geofencing Subscriptions",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Location Services",
@@ -1976,8 +2043,8 @@ const ViewerLib = {
         {
           "api_name": "location-retrieval",
           "file_name": "location-retrieval",
-          "version": "0.4.0",
-          "title": "Device Location Retrieval",
+          "api_version": "0.4.0",
+          "api_title": "Device Location Retrieval",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Location Services",
@@ -1992,8 +2059,8 @@ const ViewerLib = {
         {
           "api_name": "location-verification",
           "file_name": "location-verification",
-          "version": "2.0.0",
-          "title": "Device Location Verification",
+          "api_version": "2.0.0",
+          "api_title": "Device Location Verification",
           "commonalities": "0.5",
           "maturity": "stable",
           "portfolio_category": "Location Services",
@@ -2013,12 +2080,13 @@ const ViewerLib = {
       "release_date": "2025-03-14T11:49:32Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "connected-network-type-subscriptions",
           "file_name": "connected-network-type-subscriptions",
-          "version": "0.1.0",
-          "title": "Connected Network Type Subscriptions",
+          "api_version": "0.1.0",
+          "api_title": "Connected Network Type Subscriptions",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Communication Quality",
@@ -2033,8 +2101,8 @@ const ViewerLib = {
         {
           "api_name": "connected-network-type",
           "file_name": "connected-network-type",
-          "version": "0.1.0",
-          "title": "Connected Network Type",
+          "api_version": "0.1.0",
+          "api_title": "Connected Network Type",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Communication Quality",
@@ -2049,8 +2117,8 @@ const ViewerLib = {
         {
           "api_name": "device-reachability-status-subscriptions",
           "file_name": "device-reachability-status-subscriptions",
-          "version": "0.7.0",
-          "title": "Device Reachability Status Subscriptions",
+          "api_version": "0.7.0",
+          "api_title": "Device Reachability Status Subscriptions",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Device Information",
@@ -2065,8 +2133,8 @@ const ViewerLib = {
         {
           "api_name": "device-reachability-status",
           "file_name": "device-reachability-status",
-          "version": "1.0.0",
-          "title": "Device Reachability Status",
+          "api_version": "1.0.0",
+          "api_title": "Device Reachability Status",
           "commonalities": "0.5",
           "maturity": "stable",
           "portfolio_category": "Device Information",
@@ -2081,8 +2149,8 @@ const ViewerLib = {
         {
           "api_name": "device-roaming-status-subscriptions",
           "file_name": "device-roaming-status-subscriptions",
-          "version": "0.7.0",
-          "title": "Device Roaming Status Subscriptions",
+          "api_version": "0.7.0",
+          "api_title": "Device Roaming Status Subscriptions",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Device Information",
@@ -2097,8 +2165,8 @@ const ViewerLib = {
         {
           "api_name": "device-roaming-status",
           "file_name": "device-roaming-status",
-          "version": "1.0.0",
-          "title": "Device Roaming Status",
+          "api_version": "1.0.0",
+          "api_title": "Device Roaming Status",
           "commonalities": "0.5",
           "maturity": "stable",
           "portfolio_category": "Device Information",
@@ -2118,12 +2186,13 @@ const ViewerLib = {
       "release_date": "2025-03-13T07:59:07Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/DeviceSwap/releases/tag/r2.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "device-swap",
           "file_name": "device-swap",
-          "version": "0.2.0",
-          "title": "Device Swap",
+          "api_version": "0.2.0",
+          "api_title": "Device Swap",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2143,12 +2212,13 @@ const ViewerLib = {
       "release_date": "2025-03-10T11:44:37Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/KnowYourCustomer/releases/tag/r2.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "kyc-age-verification",
           "file_name": "kyc-age-verification",
-          "version": "0.1.0",
-          "title": "Know Your Customer Age Verification",
+          "api_version": "0.1.0",
+          "api_title": "Know Your Customer Age Verification",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2163,8 +2233,8 @@ const ViewerLib = {
         {
           "api_name": "kyc-fill-in",
           "file_name": "kyc-fill-in",
-          "version": "0.3.0",
-          "title": "Know Your Customer Fill-in",
+          "api_version": "0.3.0",
+          "api_title": "Know Your Customer Fill-in",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2179,8 +2249,8 @@ const ViewerLib = {
         {
           "api_name": "kyc-match",
           "file_name": "kyc-match",
-          "version": "0.3.0",
-          "title": "Know Your Customer Match",
+          "api_version": "0.3.0",
+          "api_title": "Know Your Customer Match",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2200,12 +2270,13 @@ const ViewerLib = {
       "release_date": "2025-03-14T16:46:04Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/NumberRecycling/releases/tag/r1.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "number-recycling",
           "file_name": "number-recycling",
-          "version": "0.1.0",
-          "title": "Number Recycling",
+          "api_version": "0.1.0",
+          "api_title": "Number Recycling",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2225,12 +2296,13 @@ const ViewerLib = {
       "release_date": "2025-05-06T14:34:40Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/NumberRecycling/releases/tag/r1.3",
+      "release_type": "maintenance-release",
       "apis": [
         {
           "api_name": "number-recycling",
           "file_name": "number-recycling",
-          "version": "0.1.1",
-          "title": "Number Recycling",
+          "api_version": "0.1.1",
+          "api_title": "Number Recycling",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2250,12 +2322,13 @@ const ViewerLib = {
       "release_date": "2025-03-20T14:24:37Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/NumberVerification/releases/tag/r2.4",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "number-verification",
           "file_name": "number-verification",
-          "version": "2.0.0",
-          "title": "Number Verification",
+          "api_version": "2.0.0",
+          "api_title": "Number Verification",
           "commonalities": "0.5",
           "maturity": "stable",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2275,12 +2348,13 @@ const ViewerLib = {
       "release_date": "2025-03-11T15:47:08Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/OTPValidation/releases/tag/r2.3",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "one-time-password-sms",
           "file_name": "one-time-password-sms",
-          "version": "1.1.0",
-          "title": "One Time Password SMS",
+          "api_version": "1.1.0",
+          "api_title": "One Time Password SMS",
           "commonalities": "0.5",
           "maturity": "stable",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2300,12 +2374,13 @@ const ViewerLib = {
       "release_date": "2025-03-14T09:52:57Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/PopulationDensityData/releases/tag/r2.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "population-density-data",
           "file_name": "population-density-data",
-          "version": "0.2.0",
-          "title": "Population Density Data",
+          "api_version": "0.2.0",
+          "api_title": "Population Density Data",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Location Services",
@@ -2325,12 +2400,13 @@ const ViewerLib = {
       "release_date": "2025-03-11T15:31:39Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/QualityOnDemand/releases/tag/r2.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "qod-provisioning",
           "file_name": "qod-provisioning",
-          "version": "0.2.0",
-          "title": "QoD Provisioning API",
+          "api_version": "0.2.0",
+          "api_title": "QoD Provisioning API",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Communication Quality",
@@ -2348,8 +2424,8 @@ const ViewerLib = {
         {
           "api_name": "qos-profiles",
           "file_name": "qos-profiles",
-          "version": "1.0.0",
-          "title": "QoS Profiles",
+          "api_version": "1.0.0",
+          "api_title": "QoS Profiles",
           "commonalities": "0.5",
           "maturity": "stable",
           "portfolio_category": "Communication Quality",
@@ -2364,8 +2440,8 @@ const ViewerLib = {
         {
           "api_name": "quality-on-demand",
           "file_name": "quality-on-demand",
-          "version": "1.0.0",
-          "title": "Quality-On-Demand",
+          "api_version": "1.0.0",
+          "api_title": "Quality-On-Demand",
           "commonalities": "0.5",
           "maturity": "stable",
           "portfolio_category": "Communication Quality",
@@ -2385,12 +2461,13 @@ const ViewerLib = {
       "release_date": "2025-06-04T11:39:59Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/RegionDeviceCount/releases/tag/r1.3",
+      "release_type": "maintenance-release",
       "apis": [
         {
           "api_name": "region-device-count",
           "file_name": "region-device-count",
-          "version": "0.1.0",
-          "title": "Region Device Count",
+          "api_version": "0.1.0",
+          "api_title": "Region Device Count",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Location Services",
@@ -2410,12 +2487,13 @@ const ViewerLib = {
       "release_date": "2025-03-13T11:20:01Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/SimSwap/releases/tag/r2.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "sim-swap-subscriptions",
           "file_name": "sim-swap-subscriptions",
-          "version": "0.2.0",
-          "title": "Sim Swap Subscriptions",
+          "api_version": "0.2.0",
+          "api_title": "Sim Swap Subscriptions",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2430,8 +2508,8 @@ const ViewerLib = {
         {
           "api_name": "sim-swap",
           "file_name": "sim-swap",
-          "version": "2.0.0",
-          "title": "SIM Swap",
+          "api_version": "2.0.0",
+          "api_title": "SIM Swap",
           "commonalities": "0.5",
           "maturity": "stable",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2451,12 +2529,13 @@ const ViewerLib = {
       "release_date": "2025-03-11T08:37:12Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/Tenure/releases/tag/r1.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "kyc-tenure",
           "file_name": "kyc-tenure",
-          "version": "0.1.0",
-          "title": "KYC Tenure",
+          "api_version": "0.1.0",
+          "api_title": "KYC Tenure",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Authentication and Fraud Prevention",
@@ -2476,12 +2555,13 @@ const ViewerLib = {
       "release_date": "2025-03-18T12:39:09Z",
       "meta_release": "Spring25",
       "github_url": "https://github.com/camaraproject/WebRTC/releases/tag/r1.2",
+      "release_type": "public-release",
       "apis": [
         {
           "api_name": "webrtc-call-handling",
           "file_name": "webrtc-call-handling",
-          "version": "0.2.0",
-          "title": "WebRTC Call Handling API",
+          "api_version": "0.2.0",
+          "api_title": "WebRTC Call Handling API",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Communication Services",
@@ -2496,8 +2576,8 @@ const ViewerLib = {
         {
           "api_name": "webrtc-events",
           "file_name": "webrtc-events-subscription",
-          "version": "0.1.0",
-          "title": "WebRTC Event Subscription",
+          "api_version": "0.1.0",
+          "api_title": "WebRTC Event Subscription",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Communication Services",
@@ -2512,8 +2592,8 @@ const ViewerLib = {
         {
           "api_name": "webrtc-registration",
           "file_name": "webrtc-registration",
-          "version": "0.2.0",
-          "title": "WebRTC Registration Service API",
+          "api_version": "0.2.0",
+          "api_title": "WebRTC Registration Service API",
           "commonalities": "0.5",
           "maturity": "initial",
           "portfolio_category": "Communication Services",
@@ -2532,8 +2612,8 @@ const ViewerLib = {
     {
       "api_name": "blockchain-public-address",
       "file_name": "blockchain-public-address",
-      "version": "0.2.0",
-      "title": "Blockchain Public Address",
+      "api_version": "0.2.0",
+      "api_title": "Blockchain Public Address",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Payments and Charging",
@@ -2548,13 +2628,14 @@ const ViewerLib = {
       "release_tag": "r1.2",
       "release_date": "2025-03-10T16:50:34Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/BlockchainPublicAddress/releases/tag/r1.2"
+      "github_url": "https://github.com/camaraproject/BlockchainPublicAddress/releases/tag/r1.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "call-forwarding-signal",
       "file_name": "call-forwarding-signal",
-      "version": "0.3.0",
-      "title": "Call Forwarding Signal",
+      "api_version": "0.3.0",
+      "api_title": "Call Forwarding Signal",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -2569,13 +2650,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-06T08:29:28Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/CallForwardingSignal/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/CallForwardingSignal/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "carrier-billing",
       "file_name": "carrier-billing",
-      "version": "0.4.0",
-      "title": "Carrier Billing",
+      "api_version": "0.4.0",
+      "api_title": "Carrier Billing",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Payments and Charging",
@@ -2590,13 +2672,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-11T11:47:51Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/CarrierBillingCheckOut/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/CarrierBillingCheckOut/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "carrier-billing-refund",
       "file_name": "carrier-billing-refund",
-      "version": "0.2.0",
-      "title": "Carrier Billing Refunds",
+      "api_version": "0.2.0",
+      "api_title": "Carrier Billing Refunds",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Payments and Charging",
@@ -2611,13 +2694,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-11T11:47:51Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/CarrierBillingCheckOut/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/CarrierBillingCheckOut/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "application-profiles",
       "file_name": "application-profiles",
-      "version": "0.4.0",
-      "title": "Connectivity Insights - Application Profiles",
+      "api_version": "0.4.0",
+      "api_title": "Connectivity Insights - Application Profiles",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Communication Quality",
@@ -2632,13 +2716,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-14T16:33:24Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/ConnectivityInsights/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/ConnectivityInsights/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "connectivity-insights",
       "file_name": "connectivity-insights",
-      "version": "0.5.0",
-      "title": "Connectivity Insights",
+      "api_version": "0.5.0",
+      "api_title": "Connectivity Insights",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Communication Quality",
@@ -2653,13 +2738,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-14T16:33:24Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/ConnectivityInsights/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/ConnectivityInsights/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "connectivity-insights-subscriptions",
       "file_name": "connectivity-insights-subscriptions",
-      "version": "0.5.0",
-      "title": "Connectivity Insights Subscriptions",
+      "api_version": "0.5.0",
+      "api_title": "Connectivity Insights Subscriptions",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Communication Quality",
@@ -2674,13 +2760,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-14T16:33:24Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/ConnectivityInsights/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/ConnectivityInsights/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "customer-insights",
       "file_name": "customer-insights",
-      "version": "0.1.0",
-      "title": "Customer Insights",
+      "api_version": "0.1.0",
+      "api_title": "Customer Insights",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -2695,13 +2782,14 @@ const ViewerLib = {
       "release_tag": "r1.2",
       "release_date": "2025-03-10T18:07:26Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/CustomerInsights/releases/tag/r1.2"
+      "github_url": "https://github.com/camaraproject/CustomerInsights/releases/tag/r1.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "customer-insights",
       "file_name": "customer-insights",
-      "version": "0.1.1",
-      "title": "Customer Insights",
+      "api_version": "0.1.1",
+      "api_title": "Customer Insights",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -2716,13 +2804,14 @@ const ViewerLib = {
       "release_tag": "r1.3",
       "release_date": "2025-03-20T16:54:07Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/CustomerInsights/releases/tag/r1.3"
+      "github_url": "https://github.com/camaraproject/CustomerInsights/releases/tag/r1.3",
+      "release_type": "maintenance-release"
     },
     {
       "api_name": "device-identifier",
       "file_name": "device-identifier",
-      "version": "0.2.0",
-      "title": "CAMARA Mobile Device Identifier",
+      "api_version": "0.2.0",
+      "api_title": "CAMARA Mobile Device Identifier",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -2737,13 +2826,14 @@ const ViewerLib = {
       "release_tag": "r1.3",
       "release_date": "2025-03-13T18:05:07Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceIdentifier/releases/tag/r1.3"
+      "github_url": "https://github.com/camaraproject/DeviceIdentifier/releases/tag/r1.3",
+      "release_type": "public-release"
     },
     {
       "api_name": "geofencing-subscriptions",
       "file_name": "geofencing-subscriptions",
-      "version": "0.4.0",
-      "title": "Device Geofencing Subscriptions",
+      "api_version": "0.4.0",
+      "api_title": "Device Geofencing Subscriptions",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Location Services",
@@ -2758,13 +2848,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-10T13:54:47Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceLocation/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/DeviceLocation/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "location-retrieval",
       "file_name": "location-retrieval",
-      "version": "0.4.0",
-      "title": "Device Location Retrieval",
+      "api_version": "0.4.0",
+      "api_title": "Device Location Retrieval",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Location Services",
@@ -2779,13 +2870,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-10T13:54:47Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceLocation/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/DeviceLocation/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "location-verification",
       "file_name": "location-verification",
-      "version": "2.0.0",
-      "title": "Device Location Verification",
+      "api_version": "2.0.0",
+      "api_title": "Device Location Verification",
       "commonalities": "0.5",
       "maturity": "stable",
       "portfolio_category": "Location Services",
@@ -2800,13 +2892,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-10T13:54:47Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceLocation/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/DeviceLocation/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "connected-network-type",
       "file_name": "connected-network-type",
-      "version": "0.1.0",
-      "title": "Connected Network Type",
+      "api_version": "0.1.0",
+      "api_title": "Connected Network Type",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Communication Quality",
@@ -2821,13 +2914,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-14T11:49:32Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "connected-network-type-subscriptions",
       "file_name": "connected-network-type-subscriptions",
-      "version": "0.1.0",
-      "title": "Connected Network Type Subscriptions",
+      "api_version": "0.1.0",
+      "api_title": "Connected Network Type Subscriptions",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Communication Quality",
@@ -2842,13 +2936,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-14T11:49:32Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "device-reachability-status",
       "file_name": "device-reachability-status",
-      "version": "1.0.0",
-      "title": "Device Reachability Status",
+      "api_version": "1.0.0",
+      "api_title": "Device Reachability Status",
       "commonalities": "0.5",
       "maturity": "stable",
       "portfolio_category": "Device Information",
@@ -2863,13 +2958,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-14T11:49:32Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "device-reachability-status-subscriptions",
       "file_name": "device-reachability-status-subscriptions",
-      "version": "0.7.0",
-      "title": "Device Reachability Status Subscriptions",
+      "api_version": "0.7.0",
+      "api_title": "Device Reachability Status Subscriptions",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Device Information",
@@ -2884,13 +2980,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-14T11:49:32Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "device-roaming-status",
       "file_name": "device-roaming-status",
-      "version": "1.0.0",
-      "title": "Device Roaming Status",
+      "api_version": "1.0.0",
+      "api_title": "Device Roaming Status",
       "commonalities": "0.5",
       "maturity": "stable",
       "portfolio_category": "Device Information",
@@ -2905,13 +3002,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-14T11:49:32Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "device-roaming-status-subscriptions",
       "file_name": "device-roaming-status-subscriptions",
-      "version": "0.7.0",
-      "title": "Device Roaming Status Subscriptions",
+      "api_version": "0.7.0",
+      "api_title": "Device Roaming Status Subscriptions",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Device Information",
@@ -2926,13 +3024,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-14T11:49:32Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/DeviceStatus/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "device-swap",
       "file_name": "device-swap",
-      "version": "0.2.0",
-      "title": "Device Swap",
+      "api_version": "0.2.0",
+      "api_title": "Device Swap",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -2947,13 +3046,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-13T07:59:07Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/DeviceSwap/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/DeviceSwap/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "kyc-age-verification",
       "file_name": "kyc-age-verification",
-      "version": "0.1.0",
-      "title": "Know Your Customer Age Verification",
+      "api_version": "0.1.0",
+      "api_title": "Know Your Customer Age Verification",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -2968,13 +3068,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-10T11:44:37Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/KnowYourCustomer/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/KnowYourCustomer/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "kyc-fill-in",
       "file_name": "kyc-fill-in",
-      "version": "0.3.0",
-      "title": "Know Your Customer Fill-in",
+      "api_version": "0.3.0",
+      "api_title": "Know Your Customer Fill-in",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -2989,13 +3090,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-10T11:44:37Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/KnowYourCustomer/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/KnowYourCustomer/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "kyc-match",
       "file_name": "kyc-match",
-      "version": "0.3.0",
-      "title": "Know Your Customer Match",
+      "api_version": "0.3.0",
+      "api_title": "Know Your Customer Match",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -3010,13 +3112,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-10T11:44:37Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/KnowYourCustomer/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/KnowYourCustomer/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "number-recycling",
       "file_name": "number-recycling",
-      "version": "0.1.0",
-      "title": "Number Recycling",
+      "api_version": "0.1.0",
+      "api_title": "Number Recycling",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -3031,13 +3134,14 @@ const ViewerLib = {
       "release_tag": "r1.2",
       "release_date": "2025-03-14T16:46:04Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/NumberRecycling/releases/tag/r1.2"
+      "github_url": "https://github.com/camaraproject/NumberRecycling/releases/tag/r1.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "number-recycling",
       "file_name": "number-recycling",
-      "version": "0.1.1",
-      "title": "Number Recycling",
+      "api_version": "0.1.1",
+      "api_title": "Number Recycling",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -3052,13 +3156,14 @@ const ViewerLib = {
       "release_tag": "r1.3",
       "release_date": "2025-05-06T14:34:40Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/NumberRecycling/releases/tag/r1.3"
+      "github_url": "https://github.com/camaraproject/NumberRecycling/releases/tag/r1.3",
+      "release_type": "maintenance-release"
     },
     {
       "api_name": "number-verification",
       "file_name": "number-verification",
-      "version": "2.0.0",
-      "title": "Number Verification",
+      "api_version": "2.0.0",
+      "api_title": "Number Verification",
       "commonalities": "0.5",
       "maturity": "stable",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -3073,13 +3178,14 @@ const ViewerLib = {
       "release_tag": "r2.4",
       "release_date": "2025-03-20T14:24:37Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/NumberVerification/releases/tag/r2.4"
+      "github_url": "https://github.com/camaraproject/NumberVerification/releases/tag/r2.4",
+      "release_type": "public-release"
     },
     {
       "api_name": "one-time-password-sms",
       "file_name": "one-time-password-sms",
-      "version": "1.1.0",
-      "title": "One Time Password SMS",
+      "api_version": "1.1.0",
+      "api_title": "One Time Password SMS",
       "commonalities": "0.5",
       "maturity": "stable",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -3094,13 +3200,14 @@ const ViewerLib = {
       "release_tag": "r2.3",
       "release_date": "2025-03-11T15:47:08Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/OTPValidation/releases/tag/r2.3"
+      "github_url": "https://github.com/camaraproject/OTPValidation/releases/tag/r2.3",
+      "release_type": "public-release"
     },
     {
       "api_name": "population-density-data",
       "file_name": "population-density-data",
-      "version": "0.2.0",
-      "title": "Population Density Data",
+      "api_version": "0.2.0",
+      "api_title": "Population Density Data",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Location Services",
@@ -3115,13 +3222,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-14T09:52:57Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/PopulationDensityData/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/PopulationDensityData/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "qos-profiles",
       "file_name": "qos-profiles",
-      "version": "1.0.0",
-      "title": "QoS Profiles",
+      "api_version": "1.0.0",
+      "api_title": "QoS Profiles",
       "commonalities": "0.5",
       "maturity": "stable",
       "portfolio_category": "Communication Quality",
@@ -3136,13 +3244,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-11T15:31:39Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/QualityOnDemand/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/QualityOnDemand/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "qod-provisioning",
       "file_name": "qod-provisioning",
-      "version": "0.2.0",
-      "title": "QoD Provisioning API",
+      "api_version": "0.2.0",
+      "api_title": "QoD Provisioning API",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Communication Quality",
@@ -3160,13 +3269,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-11T15:31:39Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/QualityOnDemand/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/QualityOnDemand/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "quality-on-demand",
       "file_name": "quality-on-demand",
-      "version": "1.0.0",
-      "title": "Quality-On-Demand",
+      "api_version": "1.0.0",
+      "api_title": "Quality-On-Demand",
       "commonalities": "0.5",
       "maturity": "stable",
       "portfolio_category": "Communication Quality",
@@ -3181,13 +3291,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-11T15:31:39Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/QualityOnDemand/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/QualityOnDemand/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "region-device-count",
       "file_name": "region-device-count",
-      "version": "0.1.0",
-      "title": "Region Device Count",
+      "api_version": "0.1.0",
+      "api_title": "Region Device Count",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Location Services",
@@ -3202,13 +3313,14 @@ const ViewerLib = {
       "release_tag": "r1.3",
       "release_date": "2025-06-04T11:39:59Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/RegionDeviceCount/releases/tag/r1.3"
+      "github_url": "https://github.com/camaraproject/RegionDeviceCount/releases/tag/r1.3",
+      "release_type": "maintenance-release"
     },
     {
       "api_name": "sim-swap",
       "file_name": "sim-swap",
-      "version": "2.0.0",
-      "title": "SIM Swap",
+      "api_version": "2.0.0",
+      "api_title": "SIM Swap",
       "commonalities": "0.5",
       "maturity": "stable",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -3223,13 +3335,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-13T11:20:01Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/SimSwap/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/SimSwap/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "sim-swap-subscriptions",
       "file_name": "sim-swap-subscriptions",
-      "version": "0.2.0",
-      "title": "Sim Swap Subscriptions",
+      "api_version": "0.2.0",
+      "api_title": "Sim Swap Subscriptions",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -3244,13 +3357,14 @@ const ViewerLib = {
       "release_tag": "r2.2",
       "release_date": "2025-03-13T11:20:01Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/SimSwap/releases/tag/r2.2"
+      "github_url": "https://github.com/camaraproject/SimSwap/releases/tag/r2.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "kyc-tenure",
       "file_name": "kyc-tenure",
-      "version": "0.1.0",
-      "title": "KYC Tenure",
+      "api_version": "0.1.0",
+      "api_title": "KYC Tenure",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Authentication and Fraud Prevention",
@@ -3265,13 +3379,14 @@ const ViewerLib = {
       "release_tag": "r1.2",
       "release_date": "2025-03-11T08:37:12Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/Tenure/releases/tag/r1.2"
+      "github_url": "https://github.com/camaraproject/Tenure/releases/tag/r1.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "webrtc-call-handling",
       "file_name": "webrtc-call-handling",
-      "version": "0.2.0",
-      "title": "WebRTC Call Handling API",
+      "api_version": "0.2.0",
+      "api_title": "WebRTC Call Handling API",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Communication Services",
@@ -3286,13 +3401,14 @@ const ViewerLib = {
       "release_tag": "r1.2",
       "release_date": "2025-03-18T12:39:09Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/WebRTC/releases/tag/r1.2"
+      "github_url": "https://github.com/camaraproject/WebRTC/releases/tag/r1.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "webrtc-events",
       "file_name": "webrtc-events-subscription",
-      "version": "0.1.0",
-      "title": "WebRTC Event Subscription",
+      "api_version": "0.1.0",
+      "api_title": "WebRTC Event Subscription",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Communication Services",
@@ -3307,13 +3423,14 @@ const ViewerLib = {
       "release_tag": "r1.2",
       "release_date": "2025-03-18T12:39:09Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/WebRTC/releases/tag/r1.2"
+      "github_url": "https://github.com/camaraproject/WebRTC/releases/tag/r1.2",
+      "release_type": "public-release"
     },
     {
       "api_name": "webrtc-registration",
       "file_name": "webrtc-registration",
-      "version": "0.2.0",
-      "title": "WebRTC Registration Service API",
+      "api_version": "0.2.0",
+      "api_title": "WebRTC Registration Service API",
       "commonalities": "0.5",
       "maturity": "initial",
       "portfolio_category": "Communication Services",
@@ -3328,7 +3445,8 @@ const ViewerLib = {
       "release_tag": "r1.2",
       "release_date": "2025-03-18T12:39:09Z",
       "meta_release": "Spring25",
-      "github_url": "https://github.com/camaraproject/WebRTC/releases/tag/r1.2"
+      "github_url": "https://github.com/camaraproject/WebRTC/releases/tag/r1.2",
+      "release_type": "public-release"
     }
   ]
 };
@@ -3354,8 +3472,8 @@ const ViewerLib = {
               flatApis.push({
                 // API info
                 api_name: api.api_name,
-                title: api.title || api.display_name || api.api_name,
-                version: api.version,
+                api_title: api.api_title || api.display_name || api.api_name,
+                api_version: api.api_version,
                 maturity: api.maturity,
 
                 // Repository info from release
@@ -3363,6 +3481,7 @@ const ViewerLib = {
                 release_tag: release.release_tag,
                 release_date: release.release_date,
                 github_url: release.github_url,
+                release_type: release.release_type,
 
                 // Enrichment fields
                 portfolio_category: api.portfolio_category,
@@ -3453,7 +3572,7 @@ const ViewerLib = {
      * Populate version dropdown
      */
     function populateVersionDropdown() {
-      const versions = ViewerLib.getUniqueValues(currentData.apis, 'version');
+      const versions = ViewerLib.getUniqueValues(currentData.apis, 'api_version');
       const dropdown = document.getElementById('filterVersion');
 
       // Keep "All" option and add versions
@@ -3575,7 +3694,7 @@ const ViewerLib = {
         const maturityCell = `<span class="badge badge-${api.maturity}">${api.maturity.charAt(0).toUpperCase() + api.maturity.slice(1)}</span>`;
 
         // Version cell
-        const versionCell = api.version || '-';
+        const versionCell = api.api_version || '-';
 
         // Release cell with link
         const releaseCell = `<a href="${api.github_url}" target="_blank" rel="noopener">${api.release_tag}</a>`;
@@ -3658,18 +3777,18 @@ const ViewerLib = {
         }
 
         // Exact version filter (from dropdown)
-        if (versionFilter && api.version !== versionFilter) {
+        if (versionFilter && api.api_version !== versionFilter) {
           return false;
         }
 
         // Version range filters
-        if (versionMinFilter && api.version) {
-          if (ViewerLib.compareVersions(api.version, versionMinFilter) < 0) {
+        if (versionMinFilter && api.api_version) {
+          if (ViewerLib.compareVersions(api.api_version, versionMinFilter) < 0) {
             return false;
           }
         }
-        if (versionMaxFilter && api.version) {
-          if (ViewerLib.compareVersions(api.version, versionMaxFilter) > 0) {
+        if (versionMaxFilter && api.api_version) {
+          if (ViewerLib.compareVersions(api.api_version, versionMaxFilter) > 0) {
             return false;
           }
         }
