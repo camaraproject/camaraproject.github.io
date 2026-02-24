@@ -586,6 +586,18 @@ tbody tr:last-child td {
   background: var(--badge-new-bg);
 }
 
+.badge-archived {
+  background: #9e9e9e;
+  font-size: 10px;
+  padding: 2px 6px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+[data-theme="dark"] .badge-archived {
+  background: #616161;
+}
+
 /* API name links */
 td:first-child a {
   color: var(--accent-primary);
@@ -1797,7 +1809,7 @@ const ViewerLib = {
     // Embedded release data (fully enriched from workflow)
     const RELEASE_DATA = {
   "metadata": {
-    "generated": "2026-02-11T23:15:01.122Z",
+    "generated": "2026-02-24T17:21:50.102Z",
     "meta_release": "All",
     "source": "Release Collector v3",
     "landscape_version": "1.1.0"
@@ -2154,6 +2166,7 @@ const ViewerLib = {
         }
       ],
       "total_apis": 1,
+      "repository_archived": true,
       "unique_apis_count": 1
     },
     "IoTNetworkOptimization": {
@@ -4072,6 +4085,7 @@ const ViewerLib = {
       "meta_release": "Fall24",
       "github_url": "https://github.com/camaraproject/HomeDevicesQoD/releases/tag/r1.2",
       "release_type": "public-release",
+      "repository_archived": true,
       "apis": [
         {
           "api_name": "home-devices-qod",
@@ -7372,7 +7386,8 @@ const ViewerLib = {
       "release_date": "2024-09-06T08:39:24Z",
       "meta_release": "Fall24",
       "github_url": "https://github.com/camaraproject/HomeDevicesQoD/releases/tag/r1.2",
-      "release_type": "public-release"
+      "release_type": "public-release",
+      "repository_archived": true
     },
     {
       "api_name": "iot-network-optimization",
@@ -9082,6 +9097,7 @@ const ViewerLib = {
                 meta_release: release.meta_release,
                 github_url: release.github_url,
                 release_type: release.release_type,
+                ...(release.repository_archived ? { repository_archived: true } : {}),
 
                 // Enrichment fields
                 portfolio_category: api.portfolio_category,
@@ -9516,11 +9532,13 @@ const ViewerLib = {
         section.className = 'api-evolution-section';
 
         // Header
+        const isArchived = versions.some(v => v.repository_archived);
+        const archivedBadge = isArchived ? ' <span class="badge badge-archived">Archived</span>' : '';
         const header = document.createElement('div');
         header.className = 'api-evolution-header';
         header.innerHTML = `
           <div>
-            <div class="api-evolution-name">${latestAPI.api_name}</div>
+            <div class="api-evolution-name">${latestAPI.api_name}${archivedBadge}</div>
             <div class="api-evolution-category">${firstAPI.portfolio_category || 'Uncategorized'}</div>
           </div>
           <div>
@@ -9593,10 +9611,13 @@ const ViewerLib = {
         const uniqueAPIs = Object.keys(apisByName).length;
         const githubUrl = repo.apis[0].github_url.replace(/\/releases\/tag\/.*$/, '');
 
+        const isArchived = repo.apis.some(a => a.repository_archived);
+        const archivedBadge = isArchived ? ' <span class="badge badge-archived">Archived</span>' : '';
+
         header.innerHTML = `
           <div>
             <div class="repo-name">
-              <a href="${githubUrl}" target="_blank" rel="noopener">${repoName}</a>
+              <a href="${githubUrl}" target="_blank" rel="noopener">${repoName}</a>${archivedBadge}
             </div>
             <div class="repo-stats">${Array.from(repo.releases).length} releases | ${uniqueAPIs} APIs</div>
           </div>
