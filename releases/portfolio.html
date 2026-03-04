@@ -169,7 +169,7 @@ body:not(.in-iframe) {
   max-width: 100%;
   margin: 0 auto;
   background: var(--bg-container);
-  overflow: hidden;
+  overflow: clip;
 }
 
 body:not(.in-iframe) .container {
@@ -469,7 +469,7 @@ table {
   font-size: 13px;
   margin-bottom: 20px;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: clip;
   box-shadow: var(--shadow-sm);
   background-color: var(--bg-container);
 }
@@ -486,7 +486,9 @@ th {
   color: var(--text-on-accent);
   cursor: pointer;
   user-select: none;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 10;
   font-size: 13px;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -1809,23 +1811,23 @@ const ViewerLib = {
     // Embedded release data (fully enriched from workflow)
     const RELEASE_DATA = {
   "metadata": {
-    "generated": "2026-02-24T17:21:50.102Z",
+    "generated": "2026-03-03T12:23:27.876Z",
     "meta_release": "All",
     "source": "Release Collector v3",
     "landscape_version": "1.1.0"
   },
   "statistics": {
-    "repositories_count": 45,
-    "api_versions_count": 147,
-    "unique_api_names_count": 64,
-    "unique_apis_count": 63,
+    "repositories_count": 46,
+    "api_versions_count": 148,
+    "unique_api_names_count": 65,
+    "unique_apis_count": 64,
     "api_version_maturity": {
-      "stable": 27,
+      "stable": 28,
       "initial": 119,
       "rc": 1
     },
     "unique_api_maturity": {
-      "stable": 10,
+      "stable": 11,
       "initial": 52,
       "rc": 1
     },
@@ -1842,7 +1844,8 @@ const ViewerLib = {
     "commonalities_versions": [
       "0.4",
       "0.5",
-      "0.6"
+      "0.6",
+      "r4.1"
     ],
     "apis_with_previous_names": 4
   },
@@ -2444,6 +2447,17 @@ const ViewerLib = {
         }
       ],
       "total_apis": 2,
+      "unique_apis_count": 1
+    },
+    "ReleaseTest": {
+      "releases": [
+        {
+          "tag": "r1.1",
+          "date": "2026-03-01T16:00:48Z",
+          "apis_count": 1
+        }
+      ],
+      "total_apis": 1,
       "unique_apis_count": 1
     },
     "SimpleEdgeDiscovery": {
@@ -5236,6 +5250,31 @@ const ViewerLib = {
           "canonical_name": "region-device-count",
           "first_release": "Spring25",
           "isNew": false
+        }
+      ]
+    },
+    {
+      "repository": "ReleaseTest",
+      "release_tag": "r1.1",
+      "release_date": "2026-03-01T16:00:48Z",
+      "meta_release": "None (Sandbox)",
+      "github_url": "https://github.com/camaraproject/ReleaseTest/releases/tag/r1.1",
+      "release_type": "pre-release-alpha",
+      "apis": [
+        {
+          "api_name": "release-test",
+          "file_name": "release-test",
+          "api_version": "1.0.0-alpha.1",
+          "api_title": "Release Test",
+          "commonalities": "r4.1",
+          "maturity": "stable",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Release Test",
+          "published": true,
+          "canonical_name": "release-test",
+          "first_release": "Sandbox"
         }
       ]
     },
@@ -8476,6 +8515,27 @@ const ViewerLib = {
       "meta_release": "Fall25",
       "github_url": "https://github.com/camaraproject/RegionDeviceCount/releases/tag/r2.2",
       "release_type": "public-release"
+    },
+    {
+      "api_name": "release-test",
+      "file_name": "release-test",
+      "api_version": "1.0.0-alpha.1",
+      "api_title": "Release Test",
+      "commonalities": "r4.1",
+      "maturity": "stable",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Release Test",
+      "published": true,
+      "canonical_name": "release-test",
+      "first_release": "Sandbox",
+      "repository": "ReleaseTest",
+      "release_tag": "r1.1",
+      "release_date": "2026-03-01T16:00:48Z",
+      "meta_release": "None (Sandbox)",
+      "github_url": "https://github.com/camaraproject/ReleaseTest/releases/tag/r1.1",
+      "release_type": "pre-release-alpha"
     },
     {
       "api_name": "simple-edge-discovery",
