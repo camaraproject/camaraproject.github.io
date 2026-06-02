@@ -998,7 +998,7 @@ td:nth-child(7) {
       border-color: #0092f5;
     }
 
-    .timeline-item.sandbox {
+    .timeline-item.independent {
       border-color: #f5a742;
       background: #fff8ed;
     }
@@ -1130,7 +1130,7 @@ td:nth-child(7) {
       border-color: var(--border-light);
     }
 
-    html[data-theme="dark"] .timeline-item.sandbox {
+    html[data-theme="dark"] .timeline-item.independent {
       background: rgba(245, 167, 66, 0.1);
       border-color: var(--warning-color);
     }
@@ -1225,7 +1225,7 @@ td:nth-child(7) {
         </table>
         <div class="footer-note"
           style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 6px; font-size: 13px; color: #666;">
-          Note: This table shows only meta-releases (Fall24, Spring25, Fall25). Sandbox releases are shown in API
+          Note: This table shows only meta-releases (Fall24, Spring25, Fall25). Independent releases are shown in API
           Evolution and Repository views.
         </div>
       </div>
@@ -1811,29 +1811,29 @@ const ViewerLib = {
     // Embedded release data (fully enriched from workflow)
     const RELEASE_DATA = {
   "metadata": {
-    "generated": "2026-03-13T05:33:53.173Z",
+    "generated": "2026-06-02T07:10:41.178Z",
     "meta_release": "All",
     "source": "Release Collector v3",
     "landscape_version": "1.1.0"
   },
   "statistics": {
-    "repositories_count": 46,
-    "api_versions_count": 150,
-    "unique_api_names_count": 66,
-    "unique_apis_count": 65,
+    "repositories_count": 50,
+    "api_versions_count": 167,
+    "unique_api_names_count": 75,
+    "unique_apis_count": 74,
     "api_version_maturity": {
       "stable": 28,
-      "initial": 119,
-      "rc": 3
+      "initial": 133,
+      "rc": 6
     },
     "unique_api_maturity": {
-      "stable": 11,
-      "initial": 51,
-      "rc": 3
+      "stable": 10,
+      "initial": 60,
+      "rc": 4
     },
     "categories": {
-      "Computing Services": 9,
-      "Communication Quality": 35,
+      "Computing Services": 10,
+      "Communication Quality": 39,
       "Payments and Charging": 11,
       "Authentication and Fraud Prevention": 46,
       "Service Management": 2,
@@ -1841,13 +1841,6 @@ const ViewerLib = {
       "Location Services": 16,
       "Communication Services": 8
     },
-    "commonalities_versions": [
-      "0.4",
-      "0.5",
-      "0.6",
-      "0.7",
-      "r4.1"
-    ],
     "apis_with_previous_names": 4
   },
   "repositories": {
@@ -1950,8 +1943,8 @@ const ViewerLib = {
     "ClickToDial": {
       "releases": [
         {
-          "tag": "r1.1",
-          "date": "2025-05-15T14:04:29Z",
+          "tag": "r1.4",
+          "date": "2026-06-01T17:46:34Z",
           "apis_count": 1
         }
       ],
@@ -1993,8 +1986,8 @@ const ViewerLib = {
     "ConsentInfo": {
       "releases": [
         {
-          "tag": "r2.1",
-          "date": "2026-02-05T10:25:58Z",
+          "tag": "r2.3",
+          "date": "2026-03-23T12:56:54Z",
           "apis_count": 1
         },
         {
@@ -2030,13 +2023,18 @@ const ViewerLib = {
     "DedicatedNetworks": {
       "releases": [
         {
+          "tag": "r2.1",
+          "date": "2026-05-26T09:40:59Z",
+          "apis_count": 4
+        },
+        {
           "tag": "r1.2",
           "date": "2025-09-18T07:42:08Z",
           "apis_count": 3
         }
       ],
-      "total_apis": 3,
-      "unique_apis_count": 3
+      "total_apis": 7,
+      "unique_apis_count": 4
     },
     "DeviceDataVolume": {
       "releases": [
@@ -2184,6 +2182,17 @@ const ViewerLib = {
       "total_apis": 1,
       "unique_apis_count": 1
     },
+    "IoTSIMFraudPrevention": {
+      "releases": [
+        {
+          "tag": "r1.2",
+          "date": "2026-05-28T01:55:36Z",
+          "apis_count": 2
+        }
+      ],
+      "total_apis": 2,
+      "unique_apis_count": 2
+    },
     "KnowYourCustomer": {
       "releases": [
         {
@@ -2270,8 +2279,40 @@ const ViewerLib = {
       "total_apis": 2,
       "unique_apis_count": 1
     },
+    "NetworkAccessManagement": {
+      "releases": [
+        {
+          "tag": "r2.1",
+          "date": "2026-05-28T15:15:46Z",
+          "apis_count": 1
+        }
+      ],
+      "total_apis": 1,
+      "unique_apis_count": 1
+    },
+    "NetworkInsights": {
+      "releases": [
+        {
+          "tag": "r1.2",
+          "date": "2026-05-22T03:21:06Z",
+          "apis_count": 2
+        },
+        {
+          "tag": "r1.1",
+          "date": "2026-04-16T01:13:01Z",
+          "apis_count": 2
+        }
+      ],
+      "total_apis": 4,
+      "unique_apis_count": 2
+    },
     "NetworkSliceBooking": {
       "releases": [
+        {
+          "tag": "r2.2",
+          "date": "2026-05-25T02:43:46Z",
+          "apis_count": 2
+        },
         {
           "tag": "r2.1",
           "date": "2026-03-11T02:25:30Z",
@@ -2283,7 +2324,7 @@ const ViewerLib = {
           "apis_count": 1
         }
       ],
-      "total_apis": 3,
+      "total_apis": 5,
       "unique_apis_count": 2
     },
     "NumberRecycling": {
@@ -2459,7 +2500,18 @@ const ViewerLib = {
       "releases": [
         {
           "tag": "r1.1",
-          "date": "2026-03-01T16:00:48Z",
+          "date": "2026-05-29T13:39:43Z",
+          "apis_count": 3
+        }
+      ],
+      "total_apis": 3,
+      "unique_apis_count": 3
+    },
+    "SessionInsights": {
+      "releases": [
+        {
+          "tag": "r1.1",
+          "date": "2026-05-07T09:55:28Z",
           "apis_count": 1
         }
       ],
@@ -2468,6 +2520,11 @@ const ViewerLib = {
     },
     "SimpleEdgeDiscovery": {
       "releases": [
+        {
+          "tag": "r2.3",
+          "date": "2026-04-23T09:19:18Z",
+          "apis_count": 1
+        },
         {
           "tag": "r2.2",
           "date": "2025-09-17T17:29:46Z",
@@ -2479,7 +2536,7 @@ const ViewerLib = {
           "apis_count": 1
         }
       ],
-      "total_apis": 2,
+      "total_apis": 3,
       "unique_apis_count": 1
     },
     "SimSwap": {
@@ -2595,7 +2652,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "application-endpoint-discovery",
-          "file_name": "application-endpoint-discovery",
           "api_version": "0.1.0",
           "api_title": "Application Endpoint Discovery",
           "commonalities": "0.6",
@@ -2621,7 +2677,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "application-endpoint-registration",
-          "file_name": "application-endpoint-registration",
           "api_version": "0.1.0",
           "api_title": "Application Endpoints Registration",
           "commonalities": "0.6",
@@ -2647,7 +2702,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "application-profiles",
-          "file_name": "application-profiles",
           "api_version": "0.5.0",
           "api_title": "Connectivity Insights - Application Profiles",
           "commonalities": "0.6",
@@ -2673,7 +2727,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "blockchain-public-address",
-          "file_name": "blockchain-public-address",
           "api_version": "0.2.0",
           "api_title": "Blockchain Public Address",
           "commonalities": "0.5",
@@ -2699,7 +2752,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "blockchain-public-address-validation",
-          "file_name": "blockchain-public-address-validation",
           "api_version": "0.1.0",
           "api_title": "Blockchain Public Address Validation",
           "commonalities": "0.6",
@@ -2715,7 +2767,6 @@ const ViewerLib = {
         },
         {
           "api_name": "blockchain-public-address",
-          "file_name": "blockchain-public-address",
           "api_version": "0.3.0",
           "api_title": "Blockchain Public Address",
           "commonalities": "0.6",
@@ -2741,7 +2792,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "call-forwarding-signal",
-          "file_name": "call-forwarding-signal",
           "api_version": "0.2.0",
           "api_title": "Call Forwarding Signal",
           "commonalities": "0.4",
@@ -2767,7 +2817,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "call-forwarding-signal",
-          "file_name": "call-forwarding-signal",
           "api_version": "0.3.0",
           "api_title": "Call Forwarding Signal",
           "commonalities": "0.5",
@@ -2793,7 +2842,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "call-forwarding-signal",
-          "file_name": "call-forwarding-signal",
           "api_version": "0.4.0",
           "api_title": "Call Forwarding Signal",
           "commonalities": "0.6",
@@ -2819,7 +2867,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "carrier-billing-refund",
-          "file_name": "carrier-billing-refund",
           "api_version": "0.1.0",
           "api_title": "Carrier Billing Refunds",
           "commonalities": null,
@@ -2835,7 +2882,6 @@ const ViewerLib = {
         },
         {
           "api_name": "carrier-billing",
-          "file_name": "carrier-billing",
           "api_version": "0.3.0",
           "api_title": "Carrier Billing",
           "commonalities": null,
@@ -2861,7 +2907,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "carrier-billing-refund",
-          "file_name": "carrier-billing-refund",
           "api_version": "0.1.1",
           "api_title": "Carrier Billing Refunds",
           "commonalities": null,
@@ -2877,7 +2922,6 @@ const ViewerLib = {
         },
         {
           "api_name": "carrier-billing",
-          "file_name": "carrier-billing",
           "api_version": "0.3.1",
           "api_title": "Carrier Billing",
           "commonalities": null,
@@ -2903,7 +2947,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "carrier-billing-refund",
-          "file_name": "carrier-billing-refund",
           "api_version": "0.2.0",
           "api_title": "Carrier Billing Refunds",
           "commonalities": "0.5",
@@ -2919,7 +2962,6 @@ const ViewerLib = {
         },
         {
           "api_name": "carrier-billing",
-          "file_name": "carrier-billing",
           "api_version": "0.4.0",
           "api_title": "Carrier Billing",
           "commonalities": "0.5",
@@ -2945,7 +2987,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "carrier-billing-refund",
-          "file_name": "carrier-billing-refund",
           "api_version": "0.3.0",
           "api_title": "Carrier Billing Refund",
           "commonalities": "0.6",
@@ -2961,7 +3002,6 @@ const ViewerLib = {
         },
         {
           "api_name": "carrier-billing",
-          "file_name": "carrier-billing",
           "api_version": "0.5.0",
           "api_title": "Carrier Billing",
           "commonalities": "0.6",
@@ -2979,23 +3019,27 @@ const ViewerLib = {
     },
     {
       "repository": "ClickToDial",
-      "release_tag": "r1.1",
-      "release_date": "2025-05-15T14:04:29Z",
-      "meta_release": "None (Sandbox)",
-      "github_url": "https://github.com/camaraproject/ClickToDial/releases/tag/r1.1",
-      "release_type": "pre-release-alpha",
+      "release_tag": "r1.4",
+      "release_date": "2026-06-01T17:46:34Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/ClickToDial/releases/tag/r1.4",
+      "release_type": "public-release",
+      "src_commit_sha": "b2308cb8035cb0237550a97e1caab297d3d88d03",
+      "dependencies": {
+        "commonalities_release": "r4.3 (0.8.0)",
+        "identity_consent_management_release": "r4.2 (0.5.0)"
+      },
       "apis": [
         {
           "api_name": "click-to-dial",
-          "file_name": "click-to-dial",
-          "api_version": "0.1.0-alpha.1",
-          "api_title": "Click to Dial Service API",
-          "commonalities": "0.5",
+          "api_version": "0.1.0",
+          "api_title": "Click to Dial Service",
+          "commonalities": "0.8.0",
           "maturity": "initial",
           "portfolio_category": null,
           "website_url": null,
           "tooltip": null,
-          "display_name": "Click to Dial Service API",
+          "display_name": "Click to Dial Service",
           "published": true,
           "canonical_name": "click-to-dial",
           "first_release": "Sandbox"
@@ -3012,7 +3056,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "connected-network-type-subscriptions",
-          "file_name": "connected-network-type-subscriptions",
           "api_version": "0.2.0",
           "api_title": "Connected Network Type Subscriptions",
           "commonalities": "0.6",
@@ -3028,7 +3071,6 @@ const ViewerLib = {
         },
         {
           "api_name": "connected-network-type",
-          "file_name": "connected-network-type",
           "api_version": "0.2.0",
           "api_title": "Connected Network Type",
           "commonalities": "0.6",
@@ -3054,7 +3096,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "application-profiles",
-          "file_name": "application-profiles",
           "api_version": "0.3.0",
           "api_title": "Connectivity Insights - Application Profiles",
           "commonalities": "0.4",
@@ -3070,7 +3111,6 @@ const ViewerLib = {
         },
         {
           "api_name": "connectivity-insights-subscriptions",
-          "file_name": "connectivity-insights-subscriptions",
           "api_version": "0.4.0",
           "api_title": "Connectivity Insights Subscriptions",
           "commonalities": "0.4",
@@ -3086,7 +3126,6 @@ const ViewerLib = {
         },
         {
           "api_name": "connectivity-insights",
-          "file_name": "connectivity-insights",
           "api_version": "0.4.0",
           "api_title": "Connectivity Insights",
           "commonalities": "0.4",
@@ -3112,7 +3151,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "application-profiles",
-          "file_name": "application-profiles",
           "api_version": "0.4.0",
           "api_title": "Connectivity Insights - Application Profiles",
           "commonalities": "0.5",
@@ -3128,7 +3166,6 @@ const ViewerLib = {
         },
         {
           "api_name": "connectivity-insights-subscriptions",
-          "file_name": "connectivity-insights-subscriptions",
           "api_version": "0.5.0",
           "api_title": "Connectivity Insights Subscriptions",
           "commonalities": "0.5",
@@ -3144,7 +3181,6 @@ const ViewerLib = {
         },
         {
           "api_name": "connectivity-insights",
-          "file_name": "connectivity-insights",
           "api_version": "0.5.0",
           "api_title": "Connectivity Insights",
           "commonalities": "0.5",
@@ -3170,7 +3206,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "connectivity-insights-subscriptions",
-          "file_name": "connectivity-insights-subscriptions",
           "api_version": "0.6.0",
           "api_title": "Connectivity Insights Subscriptions",
           "commonalities": "0.6",
@@ -3186,7 +3221,6 @@ const ViewerLib = {
         },
         {
           "api_name": "connectivity-insights",
-          "file_name": "connectivity-insights",
           "api_version": "0.6.0",
           "api_title": "Connectivity Insights",
           "commonalities": "0.6",
@@ -3212,7 +3246,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "consent-info",
-          "file_name": "consent-info",
           "api_version": "0.1.0",
           "api_title": "Consent Info",
           "commonalities": "0.6",
@@ -3230,18 +3263,22 @@ const ViewerLib = {
     },
     {
       "repository": "ConsentInfo",
-      "release_tag": "r2.1",
-      "release_date": "2026-02-05T10:25:58Z",
-      "meta_release": "None (Sandbox)",
-      "github_url": "https://github.com/camaraproject/ConsentInfo/releases/tag/r2.1",
-      "release_type": "pre-release-rc",
+      "release_tag": "r2.3",
+      "release_date": "2026-03-23T12:56:54Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/ConsentInfo/releases/tag/r2.3",
+      "release_type": "public-release",
+      "src_commit_sha": "7fba564095861bf91d380760e2b3479bf5e36d03",
+      "dependencies": {
+        "commonalities_release": "r3.4 (0.6.1)",
+        "identity_consent_management_release": "r3.3 (0.4.0)"
+      },
       "apis": [
         {
           "api_name": "consent-info",
-          "file_name": "consent-info",
-          "api_version": "0.2.0-rc.1",
+          "api_version": "0.2.0",
           "api_title": "Consent Info",
-          "commonalities": "0.6",
+          "commonalities": "0.6.1",
           "maturity": "initial",
           "portfolio_category": "Service Management",
           "website_url": "https://camaraproject.org/consent-info/",
@@ -3263,7 +3300,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "customer-insights",
-          "file_name": "customer-insights",
           "api_version": "0.1.0",
           "api_title": "Customer Insights",
           "commonalities": "0.5",
@@ -3289,7 +3325,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "customer-insights",
-          "file_name": "customer-insights",
           "api_version": "0.1.1",
           "api_title": "Customer Insights",
           "commonalities": "0.5",
@@ -3315,7 +3350,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "customer-insights",
-          "file_name": "customer-insights",
           "api_version": "0.2.0",
           "api_title": "Customer Insights",
           "commonalities": "0.6",
@@ -3341,7 +3375,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "dedicated-network-accesses",
-          "file_name": "dedicated-network-accesses",
           "api_version": "0.1.0",
           "api_title": "Dedicated Network - Accesses",
           "commonalities": "0.6",
@@ -3357,7 +3390,6 @@ const ViewerLib = {
         },
         {
           "api_name": "dedicated-network-profiles",
-          "file_name": "dedicated-network-profiles",
           "api_version": "0.1.0",
           "api_title": "Dedicated Network - Network Profiles",
           "commonalities": "0.6",
@@ -3373,7 +3405,6 @@ const ViewerLib = {
         },
         {
           "api_name": "dedicated-network",
-          "file_name": "dedicated-network",
           "api_version": "0.1.0",
           "api_title": "Dedicated Network - Networks",
           "commonalities": "0.6",
@@ -3390,6 +3421,77 @@ const ViewerLib = {
       ]
     },
     {
+      "repository": "DedicatedNetworks",
+      "release_tag": "r2.1",
+      "release_date": "2026-05-26T09:40:59Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/DedicatedNetworks/releases/tag/r2.1",
+      "release_type": "pre-release-alpha",
+      "src_commit_sha": "85f46685709380b2a615e12e28f2f6c85f13f245",
+      "dependencies": {
+        "commonalities_release": "r3.4 (0.6.1)",
+        "identity_consent_management_release": "r3.3 (0.4.0)"
+      },
+      "apis": [
+        {
+          "api_name": "dedicated-network-accesses",
+          "api_version": "0.2.0-alpha.1",
+          "api_title": "Dedicated Network - Accesses",
+          "commonalities": "0.6.1",
+          "maturity": "initial",
+          "portfolio_category": "Communication Quality",
+          "website_url": "https://camaraproject.org/dedicated-networks/#",
+          "tooltip": "Control access to dedicated networks",
+          "display_name": "Dedicated Network - Accesses",
+          "published": true,
+          "canonical_name": "dedicated-network-accesses",
+          "first_release": "Fall25"
+        },
+        {
+          "api_name": "dedicated-network-profiles",
+          "api_version": "0.2.0-alpha.1",
+          "api_title": "Dedicated Network - Network Profiles",
+          "commonalities": "0.6.1",
+          "maturity": "initial",
+          "portfolio_category": "Communication Quality",
+          "website_url": "https://camaraproject.org/dedicated-networks/#",
+          "tooltip": "Configure dedicated network profiles",
+          "display_name": "Dedicated Network - Network Profiles",
+          "published": true,
+          "canonical_name": "dedicated-network-profiles",
+          "first_release": "Fall25"
+        },
+        {
+          "api_name": "dedicated-network",
+          "api_version": "0.2.0-alpha.1",
+          "api_title": "Dedicated Network - Networks",
+          "commonalities": "0.6.1",
+          "maturity": "initial",
+          "portfolio_category": "Communication Quality",
+          "website_url": "https://camaraproject.org/dedicated-networks/#",
+          "tooltip": "Manage dedicated private networks",
+          "display_name": "Dedicated Network - Networks",
+          "published": true,
+          "canonical_name": "dedicated-network",
+          "first_release": "Fall25"
+        },
+        {
+          "api_name": "dedicated-network-areas",
+          "api_version": "0.1.0-alpha.1",
+          "api_title": "Dedicated Network - Areas",
+          "commonalities": "0.6.1",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Dedicated Network - Areas",
+          "published": true,
+          "canonical_name": "dedicated-network-areas",
+          "first_release": "Sandbox"
+        }
+      ]
+    },
+    {
       "repository": "DeviceDataVolume",
       "release_tag": "r1.3",
       "release_date": "2025-09-12T09:19:47Z",
@@ -3399,7 +3501,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "device-data-volume-subscriptions",
-          "file_name": "device-data-volume-subscriptions",
           "api_version": "0.1.0",
           "api_title": "Device Data Volume Subscriptions",
           "commonalities": "0.6",
@@ -3415,7 +3516,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-data-volume",
-          "file_name": "device-data-volume",
           "api_version": "0.1.0",
           "api_title": "Device Data Volume",
           "commonalities": "0.6",
@@ -3441,7 +3541,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "device-identifier",
-          "file_name": "device-identifier",
           "api_version": "0.2.0",
           "api_title": "CAMARA Mobile Device Identifier",
           "commonalities": "0.5",
@@ -3467,7 +3566,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "device-identifier",
-          "file_name": "device-identifier",
           "api_version": "0.3.0",
           "api_title": "Device Identifier",
           "commonalities": "0.6",
@@ -3493,7 +3591,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "geofencing-subscriptions",
-          "file_name": "geofencing-subscriptions",
           "api_version": "0.3.0",
           "api_title": "Device Geofencing Subscriptions",
           "commonalities": "0.4",
@@ -3509,7 +3606,6 @@ const ViewerLib = {
         },
         {
           "api_name": "location-retrieval",
-          "file_name": "location-retrieval",
           "api_version": "0.3.0",
           "api_title": "Device Location Retrieval",
           "commonalities": "0.4",
@@ -3525,7 +3621,6 @@ const ViewerLib = {
         },
         {
           "api_name": "location-verification",
-          "file_name": "location-verification",
           "api_version": "1.0.0",
           "api_title": "Device Location Verification",
           "commonalities": "0.4",
@@ -3551,7 +3646,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "geofencing-subscriptions",
-          "file_name": "geofencing-subscriptions",
           "api_version": "0.4.0",
           "api_title": "Device Geofencing Subscriptions",
           "commonalities": "0.5",
@@ -3567,7 +3661,6 @@ const ViewerLib = {
         },
         {
           "api_name": "location-retrieval",
-          "file_name": "location-retrieval",
           "api_version": "0.4.0",
           "api_title": "Device Location Retrieval",
           "commonalities": "0.5",
@@ -3583,7 +3676,6 @@ const ViewerLib = {
         },
         {
           "api_name": "location-verification",
-          "file_name": "location-verification",
           "api_version": "2.0.0",
           "api_title": "Device Location Verification",
           "commonalities": "0.5",
@@ -3609,7 +3701,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "geofencing-subscriptions",
-          "file_name": "geofencing-subscriptions",
           "api_version": "0.5.0",
           "api_title": "Device Geofencing Subscriptions",
           "commonalities": "0.6",
@@ -3625,7 +3716,6 @@ const ViewerLib = {
         },
         {
           "api_name": "location-retrieval",
-          "file_name": "location-retrieval",
           "api_version": "0.5.0",
           "api_title": "Device Location Retrieval",
           "commonalities": "0.6",
@@ -3641,7 +3731,6 @@ const ViewerLib = {
         },
         {
           "api_name": "location-verification",
-          "file_name": "location-verification",
           "api_version": "3.0.0",
           "api_title": "Device Location Verification",
           "commonalities": "0.6",
@@ -3667,7 +3756,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "device-reachability-status-subscriptions",
-          "file_name": "device-reachability-status-subscriptions",
           "api_version": "0.8.0",
           "api_title": "Device Reachability Status Subscriptions",
           "commonalities": "0.6",
@@ -3683,7 +3771,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-reachability-status",
-          "file_name": "device-reachability-status",
           "api_version": "1.1.0",
           "api_title": "Device Reachability Status",
           "commonalities": "0.6",
@@ -3709,7 +3796,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "device-roaming-status-subscriptions",
-          "file_name": "device-roaming-status-subscriptions",
           "api_version": "0.8.0",
           "api_title": "Device Roaming Status Subscriptions",
           "commonalities": "0.6",
@@ -3725,7 +3811,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-roaming-status",
-          "file_name": "device-roaming-status",
           "api_version": "1.1.0",
           "api_title": "Device Roaming Status",
           "commonalities": "0.6",
@@ -3751,7 +3836,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "device-reachability-status-subscriptions",
-          "file_name": "device-reachability-status-subscriptions",
           "api_version": "0.6.0",
           "api_title": "Device Reachability Status Subscriptions",
           "commonalities": "0.4",
@@ -3767,7 +3851,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-reachability-status",
-          "file_name": "device-reachability-status",
           "api_version": "0.6.0",
           "api_title": "Device Reachability Status",
           "commonalities": "0.4",
@@ -3783,7 +3866,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-roaming-status-subscriptions",
-          "file_name": "device-roaming-status-subscriptions",
           "api_version": "0.6.0",
           "api_title": "Device Roaming Status Subscriptions",
           "commonalities": "0.4",
@@ -3799,7 +3881,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-roaming-status",
-          "file_name": "device-roaming-status",
           "api_version": "0.6.0",
           "api_title": "Device Roaming Status",
           "commonalities": "0.4",
@@ -3825,7 +3906,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "device-reachability-status-subscriptions",
-          "file_name": "device-reachability-status-subscriptions",
           "api_version": "0.6.1",
           "api_title": "Device Reachability Status Subscriptions",
           "commonalities": "0.4",
@@ -3841,7 +3921,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-reachability-status",
-          "file_name": "device-reachability-status",
           "api_version": "0.6.1",
           "api_title": "Device Reachability Status",
           "commonalities": "0.4",
@@ -3857,7 +3936,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-roaming-status-subscriptions",
-          "file_name": "device-roaming-status-subscriptions",
           "api_version": "0.6.1",
           "api_title": "Device Roaming Status Subscriptions",
           "commonalities": "0.4",
@@ -3873,7 +3951,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-roaming-status",
-          "file_name": "device-roaming-status",
           "api_version": "0.6.1",
           "api_title": "Device Roaming Status",
           "commonalities": "0.4",
@@ -3899,7 +3976,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "connected-network-type-subscriptions",
-          "file_name": "connected-network-type-subscriptions",
           "api_version": "0.1.0",
           "api_title": "Connected Network Type Subscriptions",
           "commonalities": "0.5",
@@ -3915,7 +3991,6 @@ const ViewerLib = {
         },
         {
           "api_name": "connected-network-type",
-          "file_name": "connected-network-type",
           "api_version": "0.1.0",
           "api_title": "Connected Network Type",
           "commonalities": "0.5",
@@ -3931,7 +4006,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-reachability-status-subscriptions",
-          "file_name": "device-reachability-status-subscriptions",
           "api_version": "0.7.0",
           "api_title": "Device Reachability Status Subscriptions",
           "commonalities": "0.5",
@@ -3947,7 +4021,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-reachability-status",
-          "file_name": "device-reachability-status",
           "api_version": "1.0.0",
           "api_title": "Device Reachability Status",
           "commonalities": "0.5",
@@ -3963,7 +4036,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-roaming-status-subscriptions",
-          "file_name": "device-roaming-status-subscriptions",
           "api_version": "0.7.0",
           "api_title": "Device Roaming Status Subscriptions",
           "commonalities": "0.5",
@@ -3979,7 +4051,6 @@ const ViewerLib = {
         },
         {
           "api_name": "device-roaming-status",
-          "file_name": "device-roaming-status",
           "api_version": "1.0.0",
           "api_title": "Device Roaming Status",
           "commonalities": "0.5",
@@ -3999,13 +4070,12 @@ const ViewerLib = {
       "repository": "DeviceSwap",
       "release_tag": "r1.2",
       "release_date": "2024-12-12T16:40:48Z",
-      "meta_release": "None (Sandbox)",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/DeviceSwap/releases/tag/r1.2",
       "release_type": "public-release",
       "apis": [
         {
           "api_name": "device-swap",
-          "file_name": "device-swap",
           "api_version": "0.1.0",
           "api_title": "Device Swap",
           "commonalities": "0.4",
@@ -4030,7 +4100,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "device-swap",
-          "file_name": "device-swap",
           "api_version": "0.2.0",
           "api_title": "Device Swap",
           "commonalities": "0.5",
@@ -4056,7 +4125,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "device-swap",
-          "file_name": "device-swap",
           "api_version": "1.0.0",
           "api_title": "Device Swap",
           "commonalities": "0.6",
@@ -4082,7 +4150,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "energy-footprint-notification",
-          "file_name": "energy-footprint-notification",
           "api_version": "0.1.0",
           "api_title": "Energy Footprint Notification",
           "commonalities": "0.6",
@@ -4109,7 +4176,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "home-devices-qod",
-          "file_name": "home-devices-qod",
           "api_version": "0.4.0",
           "api_title": "Home Devices QoD",
           "commonalities": "0.4",
@@ -4129,13 +4195,12 @@ const ViewerLib = {
       "repository": "IoTNetworkOptimization",
       "release_tag": "r1.1",
       "release_date": "2025-12-11T13:11:28Z",
-      "meta_release": "None (Sandbox)",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/IoTNetworkOptimization/releases/tag/r1.1",
       "release_type": "pre-release-alpha",
       "apis": [
         {
           "api_name": "iot-network-optimization",
-          "file_name": "iot-network-optimization",
           "api_version": "0.1.0-alpha.1",
           "api_title": "IoT Network Optimization API",
           "commonalities": "0.5",
@@ -4151,6 +4216,49 @@ const ViewerLib = {
       ]
     },
     {
+      "repository": "IoTSIMFraudPrevention",
+      "release_tag": "r1.2",
+      "release_date": "2026-05-28T01:55:36Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/IoTSIMFraudPrevention/releases/tag/r1.2",
+      "release_type": "public-release",
+      "src_commit_sha": "e5096ec78ec5707413650b34f5a6f4fc6b2ac30d",
+      "dependencies": {
+        "commonalities_release": "r3.4 (0.6.1)",
+        "identity_consent_management_release": "r3.3 (0.4.0)"
+      },
+      "apis": [
+        {
+          "api_name": "iot-sim-fraud-prevention",
+          "api_version": "0.1.0",
+          "api_title": "IoT SIM Fraud Prevention",
+          "commonalities": "0.6.1",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "IoT SIM Fraud Prevention",
+          "published": true,
+          "canonical_name": "iot-sim-fraud-prevention",
+          "first_release": "Sandbox"
+        },
+        {
+          "api_name": "iot-sim-fraud-prevention-subscriptions",
+          "api_version": "0.1.0",
+          "api_title": "IoT SIM Fraud Prevention Subscriptions",
+          "commonalities": "0.6.1",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "IoT SIM Fraud Prevention Subscriptions",
+          "published": true,
+          "canonical_name": "iot-sim-fraud-prevention-subscriptions",
+          "first_release": "Sandbox"
+        }
+      ]
+    },
+    {
       "repository": "KnowYourCustomer",
       "release_tag": "r1.3",
       "release_date": "2024-09-12T09:29:42Z",
@@ -4160,7 +4268,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "kyc-fill-in",
-          "file_name": "kyc-fill-in",
           "api_version": "0.2.0",
           "api_title": "Know Your Customer Fill-in",
           "commonalities": "0.4",
@@ -4176,7 +4283,6 @@ const ViewerLib = {
         },
         {
           "api_name": "kyc-match",
-          "file_name": "kyc-match",
           "api_version": "0.2.1",
           "api_title": "Know Your Customer Match",
           "commonalities": "0.4",
@@ -4202,7 +4308,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "kyc-fill-in",
-          "file_name": "kyc-fill-in",
           "api_version": "0.2.0",
           "api_title": "Know Your Customer Fill-in",
           "commonalities": "0.4",
@@ -4218,7 +4323,6 @@ const ViewerLib = {
         },
         {
           "api_name": "kyc-match",
-          "file_name": "kyc-match",
           "api_version": "0.2.1",
           "api_title": "Know Your Customer Match",
           "commonalities": "0.4",
@@ -4244,7 +4348,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "kyc-age-verification",
-          "file_name": "kyc-age-verification",
           "api_version": "0.1.0",
           "api_title": "Know Your Customer Age Verification",
           "commonalities": "0.5",
@@ -4260,7 +4363,6 @@ const ViewerLib = {
         },
         {
           "api_name": "kyc-fill-in",
-          "file_name": "kyc-fill-in",
           "api_version": "0.3.0",
           "api_title": "Know Your Customer Fill-in",
           "commonalities": "0.5",
@@ -4276,7 +4378,6 @@ const ViewerLib = {
         },
         {
           "api_name": "kyc-match",
-          "file_name": "kyc-match",
           "api_version": "0.3.0",
           "api_title": "Know Your Customer Match",
           "commonalities": "0.5",
@@ -4302,7 +4403,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "kyc-age-verification",
-          "file_name": "kyc-age-verification",
           "api_version": "0.2.1",
           "api_title": "Know Your Customer Age Verification",
           "commonalities": "0.6",
@@ -4328,7 +4428,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "kyc-fill-in",
-          "file_name": "kyc-fill-in",
           "api_version": "0.4.0",
           "api_title": "Know Your Customer Fill-in",
           "commonalities": "0.6",
@@ -4354,7 +4453,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "kyc-fill-in",
-          "file_name": "kyc-fill-in",
           "api_version": "0.4.1",
           "api_title": "Know Your Customer Fill-in",
           "commonalities": "0.6",
@@ -4380,7 +4478,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "kyc-match",
-          "file_name": "kyc-match",
           "api_version": "0.4.0",
           "api_title": "Know Your Customer Match",
           "commonalities": "0.6",
@@ -4406,7 +4503,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "knowledge-base",
-          "file_name": "knowledge-base",
           "api_version": "0.1.0",
           "api_title": "Knowledge Base",
           "commonalities": "0.6",
@@ -4422,7 +4518,6 @@ const ViewerLib = {
         },
         {
           "api_name": "qa-assistant-manage",
-          "file_name": "qa-assistant-manage",
           "api_version": "0.1.0",
           "api_title": "Q&A Assistant - Manage",
           "commonalities": "0.6",
@@ -4438,7 +4533,6 @@ const ViewerLib = {
         },
         {
           "api_name": "qa-assistant-service",
-          "file_name": "qa-assistant-service",
           "api_version": "0.1.0",
           "api_title": "Q&A Assistant - Service",
           "commonalities": "0.6",
@@ -4458,13 +4552,12 @@ const ViewerLib = {
       "repository": "MostFrequentLocation",
       "release_tag": "r1.2",
       "release_date": "2025-01-30T15:13:30Z",
-      "meta_release": "None (Sandbox)",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/MostFrequentLocation/releases/tag/r1.2",
       "release_type": "public-release",
       "apis": [
         {
           "api_name": "most-frequent-location",
-          "file_name": "most-frequent-location",
           "api_version": "0.1.0",
           "api_title": "Most Frequent Location",
           "commonalities": "0.4",
@@ -4489,7 +4582,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "most-frequent-location",
-          "file_name": "most-frequent-location",
           "api_version": "0.2.0",
           "api_title": "Most Frequent Location",
           "commonalities": "0.6",
@@ -4506,6 +4598,121 @@ const ViewerLib = {
       ]
     },
     {
+      "repository": "NetworkAccessManagement",
+      "release_tag": "r2.1",
+      "release_date": "2026-05-28T15:15:46Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkAccessManagement/releases/tag/r2.1",
+      "release_type": "pre-release-alpha",
+      "src_commit_sha": "fdbc21694b6c90145538788d5206ef537d88f713",
+      "dependencies": {
+        "commonalities_release": "r4.2 (0.8.0-rc.2)",
+        "identity_consent_management_release": "r4.2 (0.5.0)"
+      },
+      "apis": [
+        {
+          "api_name": "network-access-management",
+          "api_version": "0.2.0-alpha.1",
+          "api_title": "Home Devices - Network Access Management",
+          "commonalities": "0.8.0-rc.2",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Home Devices - Network Access Management",
+          "published": true,
+          "canonical_name": "network-access-management",
+          "first_release": "Sandbox"
+        }
+      ]
+    },
+    {
+      "repository": "NetworkInsights",
+      "release_tag": "r1.1",
+      "release_date": "2026-04-16T01:13:01Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkInsights/releases/tag/r1.1",
+      "release_type": "pre-release-alpha",
+      "src_commit_sha": "9295e48f86b3f4c53a7081b52b9b3486622b1e17",
+      "dependencies": {
+        "commonalities_release": "r4.1 (0.7.0-rc.1)",
+        "identity_consent_management_release": "r4.2 (0.5.0)"
+      },
+      "apis": [
+        {
+          "api_name": "network-health-assessment",
+          "api_version": "0.1.0-alpha.1",
+          "api_title": "Network Health Assessment",
+          "commonalities": "0.7.0-rc.1",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Network Health Assessment",
+          "published": true,
+          "canonical_name": "network-health-assessment",
+          "first_release": "Sandbox"
+        },
+        {
+          "api_name": "network-traffic-analysis",
+          "api_version": "0.1.0-alpha.1",
+          "api_title": "Network Traffic Analysis",
+          "commonalities": "0.7.0-rc.1",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Network Traffic Analysis",
+          "published": true,
+          "canonical_name": "network-traffic-analysis",
+          "first_release": "Sandbox"
+        }
+      ]
+    },
+    {
+      "repository": "NetworkInsights",
+      "release_tag": "r1.2",
+      "release_date": "2026-05-22T03:21:06Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkInsights/releases/tag/r1.2",
+      "release_type": "pre-release-rc",
+      "src_commit_sha": "a5e16b7e699069edb36b6eabcc442884516f4213",
+      "dependencies": {
+        "commonalities_release": "r4.2 (0.8.0-rc.2)",
+        "identity_consent_management_release": "r4.2 (0.5.0)"
+      },
+      "apis": [
+        {
+          "api_name": "network-health-assessment",
+          "api_version": "0.1.0-rc.1",
+          "api_title": "Network Health Assessment",
+          "commonalities": "0.8.0-rc.2",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Network Health Assessment",
+          "published": true,
+          "canonical_name": "network-health-assessment",
+          "first_release": "Sandbox"
+        },
+        {
+          "api_name": "network-traffic-analysis",
+          "api_version": "0.1.0-rc.1",
+          "api_title": "Network Traffic Analysis",
+          "commonalities": "0.8.0-rc.2",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Network Traffic Analysis",
+          "published": true,
+          "canonical_name": "network-traffic-analysis",
+          "first_release": "Sandbox"
+        }
+      ]
+    },
+    {
       "repository": "NetworkSliceBooking",
       "release_tag": "r1.2",
       "release_date": "2025-09-17T01:33:48Z",
@@ -4515,7 +4722,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "network-slice-booking",
-          "file_name": "network-slice-booking",
           "api_version": "0.1.0",
           "api_title": "Network Slice Booking",
           "commonalities": "0.6",
@@ -4535,13 +4741,12 @@ const ViewerLib = {
       "repository": "NetworkSliceBooking",
       "release_tag": "r2.1",
       "release_date": "2026-03-11T02:25:30Z",
-      "meta_release": "None (Sandbox)",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/NetworkSliceBooking/releases/tag/r2.1",
       "release_type": "pre-release-rc",
       "apis": [
         {
           "api_name": "network-slice-assignment",
-          "file_name": "network-slice-assignment",
           "api_version": "0.1.0-rc.1",
           "api_title": "Network Slice Assignment",
           "commonalities": "0.7",
@@ -4556,7 +4761,6 @@ const ViewerLib = {
         },
         {
           "api_name": "network-slice-booking",
-          "file_name": "network-slice-booking",
           "api_version": "0.2.0-rc.1",
           "api_title": "Network Slice Booking",
           "commonalities": "0.7",
@@ -4572,6 +4776,49 @@ const ViewerLib = {
       ]
     },
     {
+      "repository": "NetworkSliceBooking",
+      "release_tag": "r2.2",
+      "release_date": "2026-05-25T02:43:46Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkSliceBooking/releases/tag/r2.2",
+      "release_type": "pre-release-rc",
+      "src_commit_sha": "a4d341853a4e5f6bff8b16984f4dd780fef35f9c",
+      "dependencies": {
+        "commonalities_release": "r4.2 (0.8.0-rc.2)",
+        "identity_consent_management_release": "r4.2 (0.5.0)"
+      },
+      "apis": [
+        {
+          "api_name": "network-slice-booking",
+          "api_version": "0.2.0-rc.2",
+          "api_title": "Network Slice Booking",
+          "commonalities": "0.8.0-rc.2",
+          "maturity": "initial",
+          "portfolio_category": "Communication Quality",
+          "website_url": "https://camaraproject.org/network-slice-booking/",
+          "tooltip": "Reserve, dynamically provision, query, dynamically delete a slice",
+          "display_name": "Network Slice Booking",
+          "published": true,
+          "canonical_name": "network-slice-booking",
+          "first_release": "Fall25"
+        },
+        {
+          "api_name": "network-slice-assignment",
+          "api_version": "0.1.0-rc.2",
+          "api_title": "Network Slice Assignment",
+          "commonalities": "0.8.0-rc.2",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Network Slice Assignment",
+          "published": true,
+          "canonical_name": "network-slice-assignment",
+          "first_release": "Sandbox"
+        }
+      ]
+    },
+    {
       "repository": "NumberRecycling",
       "release_tag": "r1.2",
       "release_date": "2025-03-14T16:46:04Z",
@@ -4581,7 +4828,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "number-recycling",
-          "file_name": "number-recycling",
           "api_version": "0.1.0",
           "api_title": "Number Recycling",
           "commonalities": "0.5",
@@ -4607,7 +4853,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "number-recycling",
-          "file_name": "number-recycling",
           "api_version": "0.1.1",
           "api_title": "Number Recycling",
           "commonalities": "0.5",
@@ -4633,7 +4878,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "number-recycling",
-          "file_name": "number-recycling",
           "api_version": "0.2.0",
           "api_title": "Number Recycling",
           "commonalities": "0.6",
@@ -4659,7 +4903,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "number-verification",
-          "file_name": "number-verification",
           "api_version": "1.0.0",
           "api_title": "Number Verification",
           "commonalities": "0.4",
@@ -4685,7 +4928,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "number-verification",
-          "file_name": "number-verification",
           "api_version": "1.0.0",
           "api_title": "Number Verification",
           "commonalities": "0.4",
@@ -4711,7 +4953,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "number-verification",
-          "file_name": "number-verification",
           "api_version": "2.0.0",
           "api_title": "Number Verification",
           "commonalities": "0.5",
@@ -4737,7 +4978,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "number-verification",
-          "file_name": "number-verification",
           "api_version": "2.1.0",
           "api_title": "Number Verification",
           "commonalities": "0.6",
@@ -4763,7 +5003,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "optimal-edge-discovery",
-          "file_name": "optimal-edge-discovery",
           "api_version": "0.1.0",
           "api_title": "Optimal Edge Discovery",
           "commonalities": "0.6",
@@ -4789,7 +5028,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "one-time-password-sms",
-          "file_name": "one-time-password-sms",
           "api_version": "1.0.0",
           "api_title": "One Time Password SMS",
           "commonalities": "0.4",
@@ -4815,7 +5053,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "one-time-password-sms",
-          "file_name": "one-time-password-sms",
           "api_version": "1.1.0",
           "api_title": "One Time Password SMS",
           "commonalities": "0.5",
@@ -4841,7 +5078,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "one-time-password-sms",
-          "file_name": "one-time-password-sms",
           "api_version": "1.1.1",
           "api_title": "One Time Password SMS",
           "commonalities": "0.6",
@@ -4867,7 +5103,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "population-density-data",
-          "file_name": "population-density-data",
           "api_version": "0.1.1",
           "api_title": "Population Density Data",
           "commonalities": "0.4",
@@ -4893,7 +5128,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "population-density-data",
-          "file_name": "population-density-data",
           "api_version": "0.2.0",
           "api_title": "Population Density Data",
           "commonalities": "0.5",
@@ -4919,7 +5153,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "population-density-data",
-          "file_name": "population-density-data",
           "api_version": "0.3.0",
           "api_title": "Population Density Data",
           "commonalities": "0.6",
@@ -4945,7 +5178,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "predictive-connectivity-data",
-          "file_name": "predictive-connectivity-data",
           "api_version": "0.1.0",
           "api_title": "Predictive Connectivity Data",
           "commonalities": "0.6",
@@ -4971,7 +5203,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "qos-booking-and-assignment",
-          "file_name": "qos-booking-and-assignment",
           "api_version": "0.1.0",
           "api_title": "QoS Booking and Assignment",
           "commonalities": "0.6",
@@ -4987,7 +5218,6 @@ const ViewerLib = {
         },
         {
           "api_name": "qos-booking",
-          "file_name": "qos-booking",
           "api_version": "0.1.0",
           "api_title": "QoS Booking",
           "commonalities": "0.6",
@@ -5013,7 +5243,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "qod-provisioning",
-          "file_name": "qod-provisioning",
           "api_version": "0.1.0",
           "api_title": "QoD Provisioning API",
           "commonalities": "0.4",
@@ -5032,7 +5261,6 @@ const ViewerLib = {
         },
         {
           "api_name": "qos-profiles",
-          "file_name": "qos-profiles",
           "api_version": "0.11.0",
           "api_title": "QoS Profiles",
           "commonalities": "0.4",
@@ -5048,7 +5276,6 @@ const ViewerLib = {
         },
         {
           "api_name": "quality-on-demand",
-          "file_name": "quality-on-demand",
           "api_version": "0.11.0",
           "api_title": "Quality-On-Demand",
           "commonalities": "0.4",
@@ -5074,7 +5301,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "qod-provisioning",
-          "file_name": "qod-provisioning",
           "api_version": "0.1.1",
           "api_title": "QoD Provisioning API",
           "commonalities": "0.4",
@@ -5093,7 +5319,6 @@ const ViewerLib = {
         },
         {
           "api_name": "qos-profiles",
-          "file_name": "qos-profiles",
           "api_version": "0.11.1",
           "api_title": "QoS Profiles",
           "commonalities": "0.4",
@@ -5109,7 +5334,6 @@ const ViewerLib = {
         },
         {
           "api_name": "quality-on-demand",
-          "file_name": "quality-on-demand",
           "api_version": "0.11.1",
           "api_title": "Quality-On-Demand",
           "commonalities": "0.4",
@@ -5135,7 +5359,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "qod-provisioning",
-          "file_name": "qod-provisioning",
           "api_version": "0.2.0",
           "api_title": "QoD Provisioning API",
           "commonalities": "0.5",
@@ -5154,7 +5377,6 @@ const ViewerLib = {
         },
         {
           "api_name": "qos-profiles",
-          "file_name": "qos-profiles",
           "api_version": "1.0.0",
           "api_title": "QoS Profiles",
           "commonalities": "0.5",
@@ -5170,7 +5392,6 @@ const ViewerLib = {
         },
         {
           "api_name": "quality-on-demand",
-          "file_name": "quality-on-demand",
           "api_version": "1.0.0",
           "api_title": "Quality-On-Demand",
           "commonalities": "0.5",
@@ -5196,7 +5417,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "qos-profiles",
-          "file_name": "qos-profiles",
           "api_version": "1.1.0",
           "api_title": "QoS Profiles",
           "commonalities": "0.6",
@@ -5212,7 +5432,6 @@ const ViewerLib = {
         },
         {
           "api_name": "qos-provisioning",
-          "file_name": "qos-provisioning",
           "api_version": "0.3.0",
           "api_title": "QoS Provisioning",
           "commonalities": "0.6",
@@ -5231,7 +5450,6 @@ const ViewerLib = {
         },
         {
           "api_name": "quality-on-demand",
-          "file_name": "quality-on-demand",
           "api_version": "1.1.0",
           "api_title": "Quality-On-Demand",
           "commonalities": "0.6",
@@ -5257,7 +5475,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "region-device-count",
-          "file_name": "region-device-count",
           "api_version": "0.1.0",
           "api_title": "Region Device Count",
           "commonalities": "0.5",
@@ -5283,7 +5500,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "region-device-count",
-          "file_name": "region-device-count",
           "api_version": "0.2.0",
           "api_title": "Region Device Count",
           "commonalities": "0.6",
@@ -5302,24 +5518,85 @@ const ViewerLib = {
     {
       "repository": "ReleaseTest",
       "release_tag": "r1.1",
-      "release_date": "2026-03-01T16:00:48Z",
-      "meta_release": "None (Sandbox)",
+      "release_date": "2026-05-29T13:39:43Z",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/ReleaseTest/releases/tag/r1.1",
       "release_type": "pre-release-alpha",
+      "src_commit_sha": "6d1c4beca7c23b76f68d92eed030dd3b93ac3dde",
+      "dependencies": {
+        "commonalities_release": "r4.3 (0.8.0)",
+        "identity_consent_management_release": "r4.2 (0.5.0)"
+      },
       "apis": [
         {
-          "api_name": "release-test",
-          "file_name": "release-test",
-          "api_version": "1.0.0-alpha.1",
-          "api_title": "Release Test",
-          "commonalities": "r4.1",
-          "maturity": "stable",
+          "api_name": "sample-service",
+          "api_version": "0.1.0-alpha.1",
+          "api_title": "Sample Service",
+          "commonalities": "0.8.0",
+          "maturity": "initial",
           "portfolio_category": null,
           "website_url": null,
           "tooltip": null,
-          "display_name": "Release Test",
+          "display_name": "Sample Service",
           "published": true,
-          "canonical_name": "release-test",
+          "canonical_name": "sample-service",
+          "first_release": "Sandbox"
+        },
+        {
+          "api_name": "sample-service-subscriptions",
+          "api_version": "0.1.0-alpha.1",
+          "api_title": "Sample Service Subscription Template",
+          "commonalities": "0.8.0",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Sample Service Subscription Template",
+          "published": true,
+          "canonical_name": "sample-service-subscriptions",
+          "first_release": "Sandbox"
+        },
+        {
+          "api_name": "sample-implicit-events",
+          "api_version": "0.1.0-alpha.1",
+          "api_title": "Sample Implicit Events",
+          "commonalities": "0.8.0",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Sample Implicit Events",
+          "published": true,
+          "canonical_name": "sample-implicit-events",
+          "first_release": "Sandbox"
+        }
+      ]
+    },
+    {
+      "repository": "SessionInsights",
+      "release_tag": "r1.1",
+      "release_date": "2026-05-07T09:55:28Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/SessionInsights/releases/tag/r1.1",
+      "release_type": "pre-release-alpha",
+      "src_commit_sha": "7223bcf938b978716970011f20fbf7cfe4e68a5f",
+      "dependencies": {
+        "commonalities_release": "r3.4 (0.6.1)",
+        "identity_consent_management_release": "r3.3 (0.4.0)"
+      },
+      "apis": [
+        {
+          "api_name": "session-insights",
+          "api_version": "0.1.0-alpha.1",
+          "api_title": "Session Insights",
+          "commonalities": "0.6.1",
+          "maturity": "initial",
+          "portfolio_category": null,
+          "website_url": null,
+          "tooltip": null,
+          "display_name": "Session Insights",
+          "published": true,
+          "canonical_name": "session-insights",
           "first_release": "Sandbox"
         }
       ]
@@ -5334,7 +5611,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "simple-edge-discovery",
-          "file_name": "simple-edge-discovery",
           "api_version": "1.0.0",
           "api_title": "Simple Edge Discovery",
           "commonalities": "0.4",
@@ -5360,10 +5636,39 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "simple-edge-discovery",
-          "file_name": "simple-edge-discovery",
           "api_version": "2.0.0",
           "api_title": "Simple Edge Discovery",
           "commonalities": "0.6",
+          "maturity": "stable",
+          "portfolio_category": "Computing Services",
+          "website_url": "https://camaraproject.org/simple-edge-discovery/",
+          "tooltip": "Discover the closest edge cloud zone to a given device",
+          "display_name": "Simple Edge Discovery",
+          "published": true,
+          "canonical_name": "simple-edge-discovery",
+          "first_release": "PreFall24",
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "repository": "SimpleEdgeDiscovery",
+      "release_tag": "r2.3",
+      "release_date": "2026-04-23T09:19:18Z",
+      "meta_release": "Fall25",
+      "github_url": "https://github.com/camaraproject/SimpleEdgeDiscovery/releases/tag/r2.3",
+      "release_type": "maintenance-release",
+      "src_commit_sha": "c6d3fe497e8b88fe10abc0a33f6eb056898854c7",
+      "dependencies": {
+        "commonalities_release": "r3.4 (0.6.1)",
+        "identity_consent_management_release": "r3.3 (0.4.0)"
+      },
+      "apis": [
+        {
+          "api_name": "simple-edge-discovery",
+          "api_version": "2.0.1",
+          "api_title": "Simple Edge Discovery",
+          "commonalities": "0.6.1",
           "maturity": "stable",
           "portfolio_category": "Computing Services",
           "website_url": "https://camaraproject.org/simple-edge-discovery/",
@@ -5386,7 +5691,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "sim-swap-subscriptions",
-          "file_name": "sim-swap-subscriptions",
           "api_version": "0.1.0",
           "api_title": "Sim Swap Subscriptions",
           "commonalities": "0.4",
@@ -5402,7 +5706,6 @@ const ViewerLib = {
         },
         {
           "api_name": "sim-swap",
-          "file_name": "sim-swap",
           "api_version": "1.0.0",
           "api_title": "SIM Swap",
           "commonalities": "0.4",
@@ -5428,7 +5731,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "sim-swap-subscriptions",
-          "file_name": "sim-swap-subscriptions",
           "api_version": "0.1.1",
           "api_title": "Sim Swap Subscriptions",
           "commonalities": "0.4",
@@ -5444,7 +5746,6 @@ const ViewerLib = {
         },
         {
           "api_name": "sim-swap",
-          "file_name": "sim-swap",
           "api_version": "1.0.0",
           "api_title": "SIM Swap",
           "commonalities": "0.4",
@@ -5470,7 +5771,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "sim-swap-subscriptions",
-          "file_name": "sim-swap-subscriptions",
           "api_version": "0.1.2",
           "api_title": "Sim Swap Subscriptions",
           "commonalities": "0.4",
@@ -5486,7 +5786,6 @@ const ViewerLib = {
         },
         {
           "api_name": "sim-swap",
-          "file_name": "sim-swap",
           "api_version": "1.0.0",
           "api_title": "SIM Swap",
           "commonalities": "0.4",
@@ -5512,7 +5811,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "sim-swap-subscriptions",
-          "file_name": "sim-swap-subscriptions",
           "api_version": "0.2.0",
           "api_title": "Sim Swap Subscriptions",
           "commonalities": "0.5",
@@ -5528,7 +5826,6 @@ const ViewerLib = {
         },
         {
           "api_name": "sim-swap",
-          "file_name": "sim-swap",
           "api_version": "2.0.0",
           "api_title": "SIM Swap",
           "commonalities": "0.5",
@@ -5554,7 +5851,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "sim-swap-subscriptions",
-          "file_name": "sim-swap-subscriptions",
           "api_version": "0.3.0",
           "api_title": "Sim Swap Subscriptions",
           "commonalities": "0.6",
@@ -5570,7 +5866,6 @@ const ViewerLib = {
         },
         {
           "api_name": "sim-swap",
-          "file_name": "sim-swap",
           "api_version": "2.1.0",
           "api_title": "SIM Swap",
           "commonalities": "0.6",
@@ -5596,7 +5891,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "sim-swap-subscriptions",
-          "file_name": "sim-swap-subscriptions",
           "api_version": "0.3.0",
           "api_title": "Sim Swap Subscriptions",
           "commonalities": "0.6",
@@ -5612,7 +5906,6 @@ const ViewerLib = {
         },
         {
           "api_name": "sim-swap",
-          "file_name": "sim-swap",
           "api_version": "2.1.0",
           "api_title": "SIM Swap",
           "commonalities": "0.6",
@@ -5638,7 +5931,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "subscription-status",
-          "file_name": "subscription-status",
           "api_version": "0.1.0",
           "api_title": "SubscriptionStatus",
           "commonalities": "0.6",
@@ -5664,7 +5956,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "kyc-tenure",
-          "file_name": "kyc-tenure",
           "api_version": "0.1.0",
           "api_title": "KYC Tenure",
           "commonalities": "0.5",
@@ -5690,7 +5981,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "kyc-tenure",
-          "file_name": "kyc-tenure",
           "api_version": "0.2.0",
           "api_title": "KYC Tenure",
           "commonalities": "0.6",
@@ -5716,7 +6006,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "traffic-influence",
-          "file_name": "traffic-influence",
           "api_version": "0.10.0",
           "api_title": "Traffic Influence",
           "commonalities": "0.6",
@@ -5742,7 +6031,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "brand-registration",
-          "file_name": "brand-registration",
           "api_version": "0.1.0",
           "api_title": "Brand Registration",
           "commonalities": "0.6",
@@ -5758,7 +6046,6 @@ const ViewerLib = {
         },
         {
           "api_name": "verified-caller",
-          "file_name": "verified-caller",
           "api_version": "0.1.0",
           "api_title": "Verified Caller",
           "commonalities": "0.6",
@@ -5784,7 +6071,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "webrtc-call-handling",
-          "file_name": "webrtc-call-handling",
           "api_version": "0.2.0",
           "api_title": "WebRTC Call Handling API",
           "commonalities": "0.5",
@@ -5800,7 +6086,6 @@ const ViewerLib = {
         },
         {
           "api_name": "webrtc-events",
-          "file_name": "webrtc-events-subscription",
           "api_version": "0.1.0",
           "api_title": "WebRTC Event Subscription",
           "commonalities": "0.5",
@@ -5816,7 +6101,6 @@ const ViewerLib = {
         },
         {
           "api_name": "webrtc-registration",
-          "file_name": "webrtc-registration",
           "api_version": "0.2.0",
           "api_title": "WebRTC Registration Service API",
           "commonalities": "0.5",
@@ -5842,7 +6126,6 @@ const ViewerLib = {
       "apis": [
         {
           "api_name": "webrtc-call-handling",
-          "file_name": "webrtc-call-handling",
           "api_version": "0.3.0",
           "api_title": "WebRTC Call Handling",
           "commonalities": "0.6",
@@ -5858,7 +6141,6 @@ const ViewerLib = {
         },
         {
           "api_name": "webrtc-events",
-          "file_name": "webrtc-events",
           "api_version": "0.2.0",
           "api_title": "WebRTC Events",
           "commonalities": "0.6",
@@ -5874,7 +6156,6 @@ const ViewerLib = {
         },
         {
           "api_name": "webrtc-registration",
-          "file_name": "webrtc-registration",
           "api_version": "0.3.0",
           "api_title": "WebRTC Registration Service",
           "commonalities": "0.6",
@@ -5894,7 +6175,6 @@ const ViewerLib = {
   "apis": [
     {
       "api_name": "application-endpoint-discovery",
-      "file_name": "application-endpoint-discovery",
       "api_version": "0.1.0",
       "api_title": "Application Endpoint Discovery",
       "commonalities": "0.6",
@@ -5916,7 +6196,6 @@ const ViewerLib = {
     },
     {
       "api_name": "application-endpoint-registration",
-      "file_name": "application-endpoint-registration",
       "api_version": "0.1.0",
       "api_title": "Application Endpoints Registration",
       "commonalities": "0.6",
@@ -5938,7 +6217,6 @@ const ViewerLib = {
     },
     {
       "api_name": "application-profiles",
-      "file_name": "application-profiles",
       "api_version": "0.5.0",
       "api_title": "Connectivity Insights - Application Profiles",
       "commonalities": "0.6",
@@ -5960,7 +6238,6 @@ const ViewerLib = {
     },
     {
       "api_name": "blockchain-public-address",
-      "file_name": "blockchain-public-address",
       "api_version": "0.2.0",
       "api_title": "Blockchain Public Address",
       "commonalities": "0.5",
@@ -5982,7 +6259,6 @@ const ViewerLib = {
     },
     {
       "api_name": "blockchain-public-address",
-      "file_name": "blockchain-public-address",
       "api_version": "0.3.0",
       "api_title": "Blockchain Public Address",
       "commonalities": "0.6",
@@ -6004,7 +6280,6 @@ const ViewerLib = {
     },
     {
       "api_name": "blockchain-public-address-validation",
-      "file_name": "blockchain-public-address-validation",
       "api_version": "0.1.0",
       "api_title": "Blockchain Public Address Validation",
       "commonalities": "0.6",
@@ -6026,7 +6301,6 @@ const ViewerLib = {
     },
     {
       "api_name": "call-forwarding-signal",
-      "file_name": "call-forwarding-signal",
       "api_version": "0.2.0",
       "api_title": "Call Forwarding Signal",
       "commonalities": "0.4",
@@ -6048,7 +6322,6 @@ const ViewerLib = {
     },
     {
       "api_name": "call-forwarding-signal",
-      "file_name": "call-forwarding-signal",
       "api_version": "0.3.0",
       "api_title": "Call Forwarding Signal",
       "commonalities": "0.5",
@@ -6070,7 +6343,6 @@ const ViewerLib = {
     },
     {
       "api_name": "call-forwarding-signal",
-      "file_name": "call-forwarding-signal",
       "api_version": "0.4.0",
       "api_title": "Call Forwarding Signal",
       "commonalities": "0.6",
@@ -6092,7 +6364,6 @@ const ViewerLib = {
     },
     {
       "api_name": "carrier-billing",
-      "file_name": "carrier-billing",
       "api_version": "0.3.0",
       "api_title": "Carrier Billing",
       "commonalities": null,
@@ -6114,7 +6385,6 @@ const ViewerLib = {
     },
     {
       "api_name": "carrier-billing",
-      "file_name": "carrier-billing",
       "api_version": "0.3.1",
       "api_title": "Carrier Billing",
       "commonalities": null,
@@ -6136,7 +6406,6 @@ const ViewerLib = {
     },
     {
       "api_name": "carrier-billing",
-      "file_name": "carrier-billing",
       "api_version": "0.4.0",
       "api_title": "Carrier Billing",
       "commonalities": "0.5",
@@ -6158,7 +6427,6 @@ const ViewerLib = {
     },
     {
       "api_name": "carrier-billing",
-      "file_name": "carrier-billing",
       "api_version": "0.5.0",
       "api_title": "Carrier Billing",
       "commonalities": "0.6",
@@ -6180,7 +6448,6 @@ const ViewerLib = {
     },
     {
       "api_name": "carrier-billing-refund",
-      "file_name": "carrier-billing-refund",
       "api_version": "0.1.0",
       "api_title": "Carrier Billing Refunds",
       "commonalities": null,
@@ -6202,7 +6469,6 @@ const ViewerLib = {
     },
     {
       "api_name": "carrier-billing-refund",
-      "file_name": "carrier-billing-refund",
       "api_version": "0.1.1",
       "api_title": "Carrier Billing Refunds",
       "commonalities": null,
@@ -6224,7 +6490,6 @@ const ViewerLib = {
     },
     {
       "api_name": "carrier-billing-refund",
-      "file_name": "carrier-billing-refund",
       "api_version": "0.2.0",
       "api_title": "Carrier Billing Refunds",
       "commonalities": "0.5",
@@ -6246,7 +6511,6 @@ const ViewerLib = {
     },
     {
       "api_name": "carrier-billing-refund",
-      "file_name": "carrier-billing-refund",
       "api_version": "0.3.0",
       "api_title": "Carrier Billing Refund",
       "commonalities": "0.6",
@@ -6268,28 +6532,26 @@ const ViewerLib = {
     },
     {
       "api_name": "click-to-dial",
-      "file_name": "click-to-dial",
-      "api_version": "0.1.0-alpha.1",
-      "api_title": "Click to Dial Service API",
-      "commonalities": "0.5",
+      "api_version": "0.1.0",
+      "api_title": "Click to Dial Service",
+      "commonalities": "0.8.0",
       "maturity": "initial",
       "portfolio_category": null,
       "website_url": null,
       "tooltip": null,
-      "display_name": "Click to Dial Service API",
+      "display_name": "Click to Dial Service",
       "published": true,
       "canonical_name": "click-to-dial",
       "first_release": "Sandbox",
       "repository": "ClickToDial",
-      "release_tag": "r1.1",
-      "release_date": "2025-05-15T14:04:29Z",
-      "meta_release": "None (Sandbox)",
-      "github_url": "https://github.com/camaraproject/ClickToDial/releases/tag/r1.1",
-      "release_type": "pre-release-alpha"
+      "release_tag": "r1.4",
+      "release_date": "2026-06-01T17:46:34Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/ClickToDial/releases/tag/r1.4",
+      "release_type": "public-release"
     },
     {
       "api_name": "connected-network-type",
-      "file_name": "connected-network-type",
       "api_version": "0.2.0",
       "api_title": "Connected Network Type",
       "commonalities": "0.6",
@@ -6311,7 +6573,6 @@ const ViewerLib = {
     },
     {
       "api_name": "connected-network-type-subscriptions",
-      "file_name": "connected-network-type-subscriptions",
       "api_version": "0.2.0",
       "api_title": "Connected Network Type Subscriptions",
       "commonalities": "0.6",
@@ -6333,7 +6594,6 @@ const ViewerLib = {
     },
     {
       "api_name": "application-profiles",
-      "file_name": "application-profiles",
       "api_version": "0.3.0",
       "api_title": "Connectivity Insights - Application Profiles",
       "commonalities": "0.4",
@@ -6355,7 +6615,6 @@ const ViewerLib = {
     },
     {
       "api_name": "application-profiles",
-      "file_name": "application-profiles",
       "api_version": "0.4.0",
       "api_title": "Connectivity Insights - Application Profiles",
       "commonalities": "0.5",
@@ -6377,7 +6636,6 @@ const ViewerLib = {
     },
     {
       "api_name": "connectivity-insights",
-      "file_name": "connectivity-insights",
       "api_version": "0.4.0",
       "api_title": "Connectivity Insights",
       "commonalities": "0.4",
@@ -6399,7 +6657,6 @@ const ViewerLib = {
     },
     {
       "api_name": "connectivity-insights",
-      "file_name": "connectivity-insights",
       "api_version": "0.5.0",
       "api_title": "Connectivity Insights",
       "commonalities": "0.5",
@@ -6421,7 +6678,6 @@ const ViewerLib = {
     },
     {
       "api_name": "connectivity-insights",
-      "file_name": "connectivity-insights",
       "api_version": "0.6.0",
       "api_title": "Connectivity Insights",
       "commonalities": "0.6",
@@ -6443,7 +6699,6 @@ const ViewerLib = {
     },
     {
       "api_name": "connectivity-insights-subscriptions",
-      "file_name": "connectivity-insights-subscriptions",
       "api_version": "0.4.0",
       "api_title": "Connectivity Insights Subscriptions",
       "commonalities": "0.4",
@@ -6465,7 +6720,6 @@ const ViewerLib = {
     },
     {
       "api_name": "connectivity-insights-subscriptions",
-      "file_name": "connectivity-insights-subscriptions",
       "api_version": "0.5.0",
       "api_title": "Connectivity Insights Subscriptions",
       "commonalities": "0.5",
@@ -6487,7 +6741,6 @@ const ViewerLib = {
     },
     {
       "api_name": "connectivity-insights-subscriptions",
-      "file_name": "connectivity-insights-subscriptions",
       "api_version": "0.6.0",
       "api_title": "Connectivity Insights Subscriptions",
       "commonalities": "0.6",
@@ -6509,7 +6762,6 @@ const ViewerLib = {
     },
     {
       "api_name": "consent-info",
-      "file_name": "consent-info",
       "api_version": "0.1.0",
       "api_title": "Consent Info",
       "commonalities": "0.6",
@@ -6531,10 +6783,9 @@ const ViewerLib = {
     },
     {
       "api_name": "consent-info",
-      "file_name": "consent-info",
-      "api_version": "0.2.0-rc.1",
+      "api_version": "0.2.0",
       "api_title": "Consent Info",
-      "commonalities": "0.6",
+      "commonalities": "0.6.1",
       "maturity": "initial",
       "portfolio_category": "Service Management",
       "website_url": "https://camaraproject.org/consent-info/",
@@ -6544,15 +6795,14 @@ const ViewerLib = {
       "canonical_name": "consent-info",
       "first_release": "Fall25",
       "repository": "ConsentInfo",
-      "release_tag": "r2.1",
-      "release_date": "2026-02-05T10:25:58Z",
-      "meta_release": "None (Sandbox)",
-      "github_url": "https://github.com/camaraproject/ConsentInfo/releases/tag/r2.1",
-      "release_type": "pre-release-rc"
+      "release_tag": "r2.3",
+      "release_date": "2026-03-23T12:56:54Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/ConsentInfo/releases/tag/r2.3",
+      "release_type": "public-release"
     },
     {
       "api_name": "customer-insights",
-      "file_name": "customer-insights",
       "api_version": "0.1.0",
       "api_title": "Customer Insights",
       "commonalities": "0.5",
@@ -6574,7 +6824,6 @@ const ViewerLib = {
     },
     {
       "api_name": "customer-insights",
-      "file_name": "customer-insights",
       "api_version": "0.1.1",
       "api_title": "Customer Insights",
       "commonalities": "0.5",
@@ -6596,7 +6845,6 @@ const ViewerLib = {
     },
     {
       "api_name": "customer-insights",
-      "file_name": "customer-insights",
       "api_version": "0.2.0",
       "api_title": "Customer Insights",
       "commonalities": "0.6",
@@ -6618,7 +6866,6 @@ const ViewerLib = {
     },
     {
       "api_name": "dedicated-network",
-      "file_name": "dedicated-network",
       "api_version": "0.1.0",
       "api_title": "Dedicated Network - Networks",
       "commonalities": "0.6",
@@ -6639,8 +6886,27 @@ const ViewerLib = {
       "release_type": "public-release"
     },
     {
+      "api_name": "dedicated-network",
+      "api_version": "0.2.0-alpha.1",
+      "api_title": "Dedicated Network - Networks",
+      "commonalities": "0.6.1",
+      "maturity": "initial",
+      "portfolio_category": "Communication Quality",
+      "website_url": "https://camaraproject.org/dedicated-networks/#",
+      "tooltip": "Manage dedicated private networks",
+      "display_name": "Dedicated Network - Networks",
+      "published": true,
+      "canonical_name": "dedicated-network",
+      "first_release": "Fall25",
+      "repository": "DedicatedNetworks",
+      "release_tag": "r2.1",
+      "release_date": "2026-05-26T09:40:59Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/DedicatedNetworks/releases/tag/r2.1",
+      "release_type": "pre-release-alpha"
+    },
+    {
       "api_name": "dedicated-network-accesses",
-      "file_name": "dedicated-network-accesses",
       "api_version": "0.1.0",
       "api_title": "Dedicated Network - Accesses",
       "commonalities": "0.6",
@@ -6661,8 +6927,47 @@ const ViewerLib = {
       "release_type": "public-release"
     },
     {
+      "api_name": "dedicated-network-accesses",
+      "api_version": "0.2.0-alpha.1",
+      "api_title": "Dedicated Network - Accesses",
+      "commonalities": "0.6.1",
+      "maturity": "initial",
+      "portfolio_category": "Communication Quality",
+      "website_url": "https://camaraproject.org/dedicated-networks/#",
+      "tooltip": "Control access to dedicated networks",
+      "display_name": "Dedicated Network - Accesses",
+      "published": true,
+      "canonical_name": "dedicated-network-accesses",
+      "first_release": "Fall25",
+      "repository": "DedicatedNetworks",
+      "release_tag": "r2.1",
+      "release_date": "2026-05-26T09:40:59Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/DedicatedNetworks/releases/tag/r2.1",
+      "release_type": "pre-release-alpha"
+    },
+    {
+      "api_name": "dedicated-network-areas",
+      "api_version": "0.1.0-alpha.1",
+      "api_title": "Dedicated Network - Areas",
+      "commonalities": "0.6.1",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Dedicated Network - Areas",
+      "published": true,
+      "canonical_name": "dedicated-network-areas",
+      "first_release": "Sandbox",
+      "repository": "DedicatedNetworks",
+      "release_tag": "r2.1",
+      "release_date": "2026-05-26T09:40:59Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/DedicatedNetworks/releases/tag/r2.1",
+      "release_type": "pre-release-alpha"
+    },
+    {
       "api_name": "dedicated-network-profiles",
-      "file_name": "dedicated-network-profiles",
       "api_version": "0.1.0",
       "api_title": "Dedicated Network - Network Profiles",
       "commonalities": "0.6",
@@ -6683,8 +6988,27 @@ const ViewerLib = {
       "release_type": "public-release"
     },
     {
+      "api_name": "dedicated-network-profiles",
+      "api_version": "0.2.0-alpha.1",
+      "api_title": "Dedicated Network - Network Profiles",
+      "commonalities": "0.6.1",
+      "maturity": "initial",
+      "portfolio_category": "Communication Quality",
+      "website_url": "https://camaraproject.org/dedicated-networks/#",
+      "tooltip": "Configure dedicated network profiles",
+      "display_name": "Dedicated Network - Network Profiles",
+      "published": true,
+      "canonical_name": "dedicated-network-profiles",
+      "first_release": "Fall25",
+      "repository": "DedicatedNetworks",
+      "release_tag": "r2.1",
+      "release_date": "2026-05-26T09:40:59Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/DedicatedNetworks/releases/tag/r2.1",
+      "release_type": "pre-release-alpha"
+    },
+    {
       "api_name": "device-data-volume",
-      "file_name": "device-data-volume",
       "api_version": "0.1.0",
       "api_title": "Device Data Volume",
       "commonalities": "0.6",
@@ -6706,7 +7030,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-data-volume-subscriptions",
-      "file_name": "device-data-volume-subscriptions",
       "api_version": "0.1.0",
       "api_title": "Device Data Volume Subscriptions",
       "commonalities": "0.6",
@@ -6728,7 +7051,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-identifier",
-      "file_name": "device-identifier",
       "api_version": "0.2.0",
       "api_title": "CAMARA Mobile Device Identifier",
       "commonalities": "0.5",
@@ -6750,7 +7072,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-identifier",
-      "file_name": "device-identifier",
       "api_version": "0.3.0",
       "api_title": "Device Identifier",
       "commonalities": "0.6",
@@ -6772,7 +7093,6 @@ const ViewerLib = {
     },
     {
       "api_name": "geofencing-subscriptions",
-      "file_name": "geofencing-subscriptions",
       "api_version": "0.3.0",
       "api_title": "Device Geofencing Subscriptions",
       "commonalities": "0.4",
@@ -6794,7 +7114,6 @@ const ViewerLib = {
     },
     {
       "api_name": "geofencing-subscriptions",
-      "file_name": "geofencing-subscriptions",
       "api_version": "0.4.0",
       "api_title": "Device Geofencing Subscriptions",
       "commonalities": "0.5",
@@ -6816,7 +7135,6 @@ const ViewerLib = {
     },
     {
       "api_name": "geofencing-subscriptions",
-      "file_name": "geofencing-subscriptions",
       "api_version": "0.5.0",
       "api_title": "Device Geofencing Subscriptions",
       "commonalities": "0.6",
@@ -6838,7 +7156,6 @@ const ViewerLib = {
     },
     {
       "api_name": "location-retrieval",
-      "file_name": "location-retrieval",
       "api_version": "0.3.0",
       "api_title": "Device Location Retrieval",
       "commonalities": "0.4",
@@ -6860,7 +7177,6 @@ const ViewerLib = {
     },
     {
       "api_name": "location-retrieval",
-      "file_name": "location-retrieval",
       "api_version": "0.4.0",
       "api_title": "Device Location Retrieval",
       "commonalities": "0.5",
@@ -6882,7 +7198,6 @@ const ViewerLib = {
     },
     {
       "api_name": "location-retrieval",
-      "file_name": "location-retrieval",
       "api_version": "0.5.0",
       "api_title": "Device Location Retrieval",
       "commonalities": "0.6",
@@ -6904,7 +7219,6 @@ const ViewerLib = {
     },
     {
       "api_name": "location-verification",
-      "file_name": "location-verification",
       "api_version": "1.0.0",
       "api_title": "Device Location Verification",
       "commonalities": "0.4",
@@ -6926,7 +7240,6 @@ const ViewerLib = {
     },
     {
       "api_name": "location-verification",
-      "file_name": "location-verification",
       "api_version": "2.0.0",
       "api_title": "Device Location Verification",
       "commonalities": "0.5",
@@ -6948,7 +7261,6 @@ const ViewerLib = {
     },
     {
       "api_name": "location-verification",
-      "file_name": "location-verification",
       "api_version": "3.0.0",
       "api_title": "Device Location Verification",
       "commonalities": "0.6",
@@ -6970,7 +7282,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-reachability-status",
-      "file_name": "device-reachability-status",
       "api_version": "1.1.0",
       "api_title": "Device Reachability Status",
       "commonalities": "0.6",
@@ -6992,7 +7303,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-reachability-status-subscriptions",
-      "file_name": "device-reachability-status-subscriptions",
       "api_version": "0.8.0",
       "api_title": "Device Reachability Status Subscriptions",
       "commonalities": "0.6",
@@ -7014,7 +7324,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-roaming-status",
-      "file_name": "device-roaming-status",
       "api_version": "1.1.0",
       "api_title": "Device Roaming Status",
       "commonalities": "0.6",
@@ -7036,7 +7345,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-roaming-status-subscriptions",
-      "file_name": "device-roaming-status-subscriptions",
       "api_version": "0.8.0",
       "api_title": "Device Roaming Status Subscriptions",
       "commonalities": "0.6",
@@ -7058,7 +7366,6 @@ const ViewerLib = {
     },
     {
       "api_name": "connected-network-type",
-      "file_name": "connected-network-type",
       "api_version": "0.1.0",
       "api_title": "Connected Network Type",
       "commonalities": "0.5",
@@ -7080,7 +7387,6 @@ const ViewerLib = {
     },
     {
       "api_name": "connected-network-type-subscriptions",
-      "file_name": "connected-network-type-subscriptions",
       "api_version": "0.1.0",
       "api_title": "Connected Network Type Subscriptions",
       "commonalities": "0.5",
@@ -7102,7 +7408,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-reachability-status",
-      "file_name": "device-reachability-status",
       "api_version": "0.6.0",
       "api_title": "Device Reachability Status",
       "commonalities": "0.4",
@@ -7124,7 +7429,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-reachability-status",
-      "file_name": "device-reachability-status",
       "api_version": "0.6.1",
       "api_title": "Device Reachability Status",
       "commonalities": "0.4",
@@ -7146,7 +7450,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-reachability-status",
-      "file_name": "device-reachability-status",
       "api_version": "1.0.0",
       "api_title": "Device Reachability Status",
       "commonalities": "0.5",
@@ -7168,7 +7471,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-reachability-status-subscriptions",
-      "file_name": "device-reachability-status-subscriptions",
       "api_version": "0.6.0",
       "api_title": "Device Reachability Status Subscriptions",
       "commonalities": "0.4",
@@ -7190,7 +7492,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-reachability-status-subscriptions",
-      "file_name": "device-reachability-status-subscriptions",
       "api_version": "0.6.1",
       "api_title": "Device Reachability Status Subscriptions",
       "commonalities": "0.4",
@@ -7212,7 +7513,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-reachability-status-subscriptions",
-      "file_name": "device-reachability-status-subscriptions",
       "api_version": "0.7.0",
       "api_title": "Device Reachability Status Subscriptions",
       "commonalities": "0.5",
@@ -7234,7 +7534,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-roaming-status",
-      "file_name": "device-roaming-status",
       "api_version": "0.6.0",
       "api_title": "Device Roaming Status",
       "commonalities": "0.4",
@@ -7256,7 +7555,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-roaming-status",
-      "file_name": "device-roaming-status",
       "api_version": "0.6.1",
       "api_title": "Device Roaming Status",
       "commonalities": "0.4",
@@ -7278,7 +7576,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-roaming-status",
-      "file_name": "device-roaming-status",
       "api_version": "1.0.0",
       "api_title": "Device Roaming Status",
       "commonalities": "0.5",
@@ -7300,7 +7597,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-roaming-status-subscriptions",
-      "file_name": "device-roaming-status-subscriptions",
       "api_version": "0.6.0",
       "api_title": "Device Roaming Status Subscriptions",
       "commonalities": "0.4",
@@ -7322,7 +7618,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-roaming-status-subscriptions",
-      "file_name": "device-roaming-status-subscriptions",
       "api_version": "0.6.1",
       "api_title": "Device Roaming Status Subscriptions",
       "commonalities": "0.4",
@@ -7344,7 +7639,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-roaming-status-subscriptions",
-      "file_name": "device-roaming-status-subscriptions",
       "api_version": "0.7.0",
       "api_title": "Device Roaming Status Subscriptions",
       "commonalities": "0.5",
@@ -7366,7 +7660,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-swap",
-      "file_name": "device-swap",
       "api_version": "0.1.0",
       "api_title": "Device Swap",
       "commonalities": "0.4",
@@ -7381,13 +7674,12 @@ const ViewerLib = {
       "repository": "DeviceSwap",
       "release_tag": "r1.2",
       "release_date": "2024-12-12T16:40:48Z",
-      "meta_release": "None (Sandbox)",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/DeviceSwap/releases/tag/r1.2",
       "release_type": "public-release"
     },
     {
       "api_name": "device-swap",
-      "file_name": "device-swap",
       "api_version": "0.2.0",
       "api_title": "Device Swap",
       "commonalities": "0.5",
@@ -7409,7 +7701,6 @@ const ViewerLib = {
     },
     {
       "api_name": "device-swap",
-      "file_name": "device-swap",
       "api_version": "1.0.0",
       "api_title": "Device Swap",
       "commonalities": "0.6",
@@ -7431,7 +7722,6 @@ const ViewerLib = {
     },
     {
       "api_name": "energy-footprint-notification",
-      "file_name": "energy-footprint-notification",
       "api_version": "0.1.0",
       "api_title": "Energy Footprint Notification",
       "commonalities": "0.6",
@@ -7453,7 +7743,6 @@ const ViewerLib = {
     },
     {
       "api_name": "home-devices-qod",
-      "file_name": "home-devices-qod",
       "api_version": "0.4.0",
       "api_title": "Home Devices QoD",
       "commonalities": "0.4",
@@ -7476,7 +7765,6 @@ const ViewerLib = {
     },
     {
       "api_name": "iot-network-optimization",
-      "file_name": "iot-network-optimization",
       "api_version": "0.1.0-alpha.1",
       "api_title": "IoT Network Optimization API",
       "commonalities": "0.5",
@@ -7491,13 +7779,52 @@ const ViewerLib = {
       "repository": "IoTNetworkOptimization",
       "release_tag": "r1.1",
       "release_date": "2025-12-11T13:11:28Z",
-      "meta_release": "None (Sandbox)",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/IoTNetworkOptimization/releases/tag/r1.1",
       "release_type": "pre-release-alpha"
     },
     {
+      "api_name": "iot-sim-fraud-prevention",
+      "api_version": "0.1.0",
+      "api_title": "IoT SIM Fraud Prevention",
+      "commonalities": "0.6.1",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "IoT SIM Fraud Prevention",
+      "published": true,
+      "canonical_name": "iot-sim-fraud-prevention",
+      "first_release": "Sandbox",
+      "repository": "IoTSIMFraudPrevention",
+      "release_tag": "r1.2",
+      "release_date": "2026-05-28T01:55:36Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/IoTSIMFraudPrevention/releases/tag/r1.2",
+      "release_type": "public-release"
+    },
+    {
+      "api_name": "iot-sim-fraud-prevention-subscriptions",
+      "api_version": "0.1.0",
+      "api_title": "IoT SIM Fraud Prevention Subscriptions",
+      "commonalities": "0.6.1",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "IoT SIM Fraud Prevention Subscriptions",
+      "published": true,
+      "canonical_name": "iot-sim-fraud-prevention-subscriptions",
+      "first_release": "Sandbox",
+      "repository": "IoTSIMFraudPrevention",
+      "release_tag": "r1.2",
+      "release_date": "2026-05-28T01:55:36Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/IoTSIMFraudPrevention/releases/tag/r1.2",
+      "release_type": "public-release"
+    },
+    {
       "api_name": "kyc-age-verification",
-      "file_name": "kyc-age-verification",
       "api_version": "0.1.0",
       "api_title": "Know Your Customer Age Verification",
       "commonalities": "0.5",
@@ -7519,7 +7846,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-fill-in",
-      "file_name": "kyc-fill-in",
       "api_version": "0.2.0",
       "api_title": "Know Your Customer Fill-in",
       "commonalities": "0.4",
@@ -7541,7 +7867,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-fill-in",
-      "file_name": "kyc-fill-in",
       "api_version": "0.2.0",
       "api_title": "Know Your Customer Fill-in",
       "commonalities": "0.4",
@@ -7563,7 +7888,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-fill-in",
-      "file_name": "kyc-fill-in",
       "api_version": "0.3.0",
       "api_title": "Know Your Customer Fill-in",
       "commonalities": "0.5",
@@ -7585,7 +7909,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-match",
-      "file_name": "kyc-match",
       "api_version": "0.2.1",
       "api_title": "Know Your Customer Match",
       "commonalities": "0.4",
@@ -7607,7 +7930,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-match",
-      "file_name": "kyc-match",
       "api_version": "0.2.1",
       "api_title": "Know Your Customer Match",
       "commonalities": "0.4",
@@ -7629,7 +7951,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-match",
-      "file_name": "kyc-match",
       "api_version": "0.3.0",
       "api_title": "Know Your Customer Match",
       "commonalities": "0.5",
@@ -7651,7 +7972,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-age-verification",
-      "file_name": "kyc-age-verification",
       "api_version": "0.2.1",
       "api_title": "Know Your Customer Age Verification",
       "commonalities": "0.6",
@@ -7673,7 +7993,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-fill-in",
-      "file_name": "kyc-fill-in",
       "api_version": "0.4.0",
       "api_title": "Know Your Customer Fill-in",
       "commonalities": "0.6",
@@ -7695,7 +8014,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-fill-in",
-      "file_name": "kyc-fill-in",
       "api_version": "0.4.1",
       "api_title": "Know Your Customer Fill-in",
       "commonalities": "0.6",
@@ -7717,7 +8035,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-match",
-      "file_name": "kyc-match",
       "api_version": "0.4.0",
       "api_title": "Know Your Customer Match",
       "commonalities": "0.6",
@@ -7739,7 +8056,6 @@ const ViewerLib = {
     },
     {
       "api_name": "knowledge-base",
-      "file_name": "knowledge-base",
       "api_version": "0.1.0",
       "api_title": "Knowledge Base",
       "commonalities": "0.6",
@@ -7761,7 +8077,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qa-assistant-manage",
-      "file_name": "qa-assistant-manage",
       "api_version": "0.1.0",
       "api_title": "Q&A Assistant - Manage",
       "commonalities": "0.6",
@@ -7783,7 +8098,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qa-assistant-service",
-      "file_name": "qa-assistant-service",
       "api_version": "0.1.0",
       "api_title": "Q&A Assistant - Service",
       "commonalities": "0.6",
@@ -7805,7 +8119,6 @@ const ViewerLib = {
     },
     {
       "api_name": "most-frequent-location",
-      "file_name": "most-frequent-location",
       "api_version": "0.1.0",
       "api_title": "Most Frequent Location",
       "commonalities": "0.4",
@@ -7820,13 +8133,12 @@ const ViewerLib = {
       "repository": "MostFrequentLocation",
       "release_tag": "r1.2",
       "release_date": "2025-01-30T15:13:30Z",
-      "meta_release": "None (Sandbox)",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/MostFrequentLocation/releases/tag/r1.2",
       "release_type": "public-release"
     },
     {
       "api_name": "most-frequent-location",
-      "file_name": "most-frequent-location",
       "api_version": "0.2.0",
       "api_title": "Most Frequent Location",
       "commonalities": "0.6",
@@ -7847,8 +8159,107 @@ const ViewerLib = {
       "release_type": "public-release"
     },
     {
+      "api_name": "network-access-management",
+      "api_version": "0.2.0-alpha.1",
+      "api_title": "Home Devices - Network Access Management",
+      "commonalities": "0.8.0-rc.2",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Home Devices - Network Access Management",
+      "published": true,
+      "canonical_name": "network-access-management",
+      "first_release": "Sandbox",
+      "repository": "NetworkAccessManagement",
+      "release_tag": "r2.1",
+      "release_date": "2026-05-28T15:15:46Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkAccessManagement/releases/tag/r2.1",
+      "release_type": "pre-release-alpha"
+    },
+    {
+      "api_name": "network-health-assessment",
+      "api_version": "0.1.0-alpha.1",
+      "api_title": "Network Health Assessment",
+      "commonalities": "0.7.0-rc.1",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Network Health Assessment",
+      "published": true,
+      "canonical_name": "network-health-assessment",
+      "first_release": "Sandbox",
+      "repository": "NetworkInsights",
+      "release_tag": "r1.1",
+      "release_date": "2026-04-16T01:13:01Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkInsights/releases/tag/r1.1",
+      "release_type": "pre-release-alpha"
+    },
+    {
+      "api_name": "network-health-assessment",
+      "api_version": "0.1.0-rc.1",
+      "api_title": "Network Health Assessment",
+      "commonalities": "0.8.0-rc.2",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Network Health Assessment",
+      "published": true,
+      "canonical_name": "network-health-assessment",
+      "first_release": "Sandbox",
+      "repository": "NetworkInsights",
+      "release_tag": "r1.2",
+      "release_date": "2026-05-22T03:21:06Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkInsights/releases/tag/r1.2",
+      "release_type": "pre-release-rc"
+    },
+    {
+      "api_name": "network-traffic-analysis",
+      "api_version": "0.1.0-alpha.1",
+      "api_title": "Network Traffic Analysis",
+      "commonalities": "0.7.0-rc.1",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Network Traffic Analysis",
+      "published": true,
+      "canonical_name": "network-traffic-analysis",
+      "first_release": "Sandbox",
+      "repository": "NetworkInsights",
+      "release_tag": "r1.1",
+      "release_date": "2026-04-16T01:13:01Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkInsights/releases/tag/r1.1",
+      "release_type": "pre-release-alpha"
+    },
+    {
+      "api_name": "network-traffic-analysis",
+      "api_version": "0.1.0-rc.1",
+      "api_title": "Network Traffic Analysis",
+      "commonalities": "0.8.0-rc.2",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Network Traffic Analysis",
+      "published": true,
+      "canonical_name": "network-traffic-analysis",
+      "first_release": "Sandbox",
+      "repository": "NetworkInsights",
+      "release_tag": "r1.2",
+      "release_date": "2026-05-22T03:21:06Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkInsights/releases/tag/r1.2",
+      "release_type": "pre-release-rc"
+    },
+    {
       "api_name": "network-slice-assignment",
-      "file_name": "network-slice-assignment",
       "api_version": "0.1.0-rc.1",
       "api_title": "Network Slice Assignment",
       "commonalities": "0.7",
@@ -7863,13 +8274,32 @@ const ViewerLib = {
       "repository": "NetworkSliceBooking",
       "release_tag": "r2.1",
       "release_date": "2026-03-11T02:25:30Z",
-      "meta_release": "None (Sandbox)",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/NetworkSliceBooking/releases/tag/r2.1",
       "release_type": "pre-release-rc"
     },
     {
+      "api_name": "network-slice-assignment",
+      "api_version": "0.1.0-rc.2",
+      "api_title": "Network Slice Assignment",
+      "commonalities": "0.8.0-rc.2",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Network Slice Assignment",
+      "published": true,
+      "canonical_name": "network-slice-assignment",
+      "first_release": "Sandbox",
+      "repository": "NetworkSliceBooking",
+      "release_tag": "r2.2",
+      "release_date": "2026-05-25T02:43:46Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkSliceBooking/releases/tag/r2.2",
+      "release_type": "pre-release-rc"
+    },
+    {
       "api_name": "network-slice-booking",
-      "file_name": "network-slice-booking",
       "api_version": "0.1.0",
       "api_title": "Network Slice Booking",
       "commonalities": "0.6",
@@ -7891,7 +8321,6 @@ const ViewerLib = {
     },
     {
       "api_name": "network-slice-booking",
-      "file_name": "network-slice-booking",
       "api_version": "0.2.0-rc.1",
       "api_title": "Network Slice Booking",
       "commonalities": "0.7",
@@ -7906,13 +8335,32 @@ const ViewerLib = {
       "repository": "NetworkSliceBooking",
       "release_tag": "r2.1",
       "release_date": "2026-03-11T02:25:30Z",
-      "meta_release": "None (Sandbox)",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/NetworkSliceBooking/releases/tag/r2.1",
       "release_type": "pre-release-rc"
     },
     {
+      "api_name": "network-slice-booking",
+      "api_version": "0.2.0-rc.2",
+      "api_title": "Network Slice Booking",
+      "commonalities": "0.8.0-rc.2",
+      "maturity": "initial",
+      "portfolio_category": "Communication Quality",
+      "website_url": "https://camaraproject.org/network-slice-booking/",
+      "tooltip": "Reserve, dynamically provision, query, dynamically delete a slice",
+      "display_name": "Network Slice Booking",
+      "published": true,
+      "canonical_name": "network-slice-booking",
+      "first_release": "Fall25",
+      "repository": "NetworkSliceBooking",
+      "release_tag": "r2.2",
+      "release_date": "2026-05-25T02:43:46Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/NetworkSliceBooking/releases/tag/r2.2",
+      "release_type": "pre-release-rc"
+    },
+    {
       "api_name": "number-recycling",
-      "file_name": "number-recycling",
       "api_version": "0.1.0",
       "api_title": "Number Recycling",
       "commonalities": "0.5",
@@ -7934,7 +8382,6 @@ const ViewerLib = {
     },
     {
       "api_name": "number-recycling",
-      "file_name": "number-recycling",
       "api_version": "0.1.1",
       "api_title": "Number Recycling",
       "commonalities": "0.5",
@@ -7956,7 +8403,6 @@ const ViewerLib = {
     },
     {
       "api_name": "number-recycling",
-      "file_name": "number-recycling",
       "api_version": "0.2.0",
       "api_title": "Number Recycling",
       "commonalities": "0.6",
@@ -7978,7 +8424,6 @@ const ViewerLib = {
     },
     {
       "api_name": "number-verification",
-      "file_name": "number-verification",
       "api_version": "1.0.0",
       "api_title": "Number Verification",
       "commonalities": "0.4",
@@ -8000,7 +8445,6 @@ const ViewerLib = {
     },
     {
       "api_name": "number-verification",
-      "file_name": "number-verification",
       "api_version": "1.0.0",
       "api_title": "Number Verification",
       "commonalities": "0.4",
@@ -8022,7 +8466,6 @@ const ViewerLib = {
     },
     {
       "api_name": "number-verification",
-      "file_name": "number-verification",
       "api_version": "2.0.0",
       "api_title": "Number Verification",
       "commonalities": "0.5",
@@ -8044,7 +8487,6 @@ const ViewerLib = {
     },
     {
       "api_name": "number-verification",
-      "file_name": "number-verification",
       "api_version": "2.1.0",
       "api_title": "Number Verification",
       "commonalities": "0.6",
@@ -8066,7 +8508,6 @@ const ViewerLib = {
     },
     {
       "api_name": "optimal-edge-discovery",
-      "file_name": "optimal-edge-discovery",
       "api_version": "0.1.0",
       "api_title": "Optimal Edge Discovery",
       "commonalities": "0.6",
@@ -8088,7 +8529,6 @@ const ViewerLib = {
     },
     {
       "api_name": "one-time-password-sms",
-      "file_name": "one-time-password-sms",
       "api_version": "1.0.0",
       "api_title": "One Time Password SMS",
       "commonalities": "0.4",
@@ -8110,7 +8550,6 @@ const ViewerLib = {
     },
     {
       "api_name": "one-time-password-sms",
-      "file_name": "one-time-password-sms",
       "api_version": "1.1.0",
       "api_title": "One Time Password SMS",
       "commonalities": "0.5",
@@ -8132,7 +8571,6 @@ const ViewerLib = {
     },
     {
       "api_name": "one-time-password-sms",
-      "file_name": "one-time-password-sms",
       "api_version": "1.1.1",
       "api_title": "One Time Password SMS",
       "commonalities": "0.6",
@@ -8154,7 +8592,6 @@ const ViewerLib = {
     },
     {
       "api_name": "population-density-data",
-      "file_name": "population-density-data",
       "api_version": "0.1.1",
       "api_title": "Population Density Data",
       "commonalities": "0.4",
@@ -8176,7 +8613,6 @@ const ViewerLib = {
     },
     {
       "api_name": "population-density-data",
-      "file_name": "population-density-data",
       "api_version": "0.2.0",
       "api_title": "Population Density Data",
       "commonalities": "0.5",
@@ -8198,7 +8634,6 @@ const ViewerLib = {
     },
     {
       "api_name": "population-density-data",
-      "file_name": "population-density-data",
       "api_version": "0.3.0",
       "api_title": "Population Density Data",
       "commonalities": "0.6",
@@ -8220,7 +8655,6 @@ const ViewerLib = {
     },
     {
       "api_name": "predictive-connectivity-data",
-      "file_name": "predictive-connectivity-data",
       "api_version": "0.1.0",
       "api_title": "Predictive Connectivity Data",
       "commonalities": "0.6",
@@ -8242,7 +8676,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qos-booking",
-      "file_name": "qos-booking",
       "api_version": "0.1.0",
       "api_title": "QoS Booking",
       "commonalities": "0.6",
@@ -8264,7 +8697,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qos-booking-and-assignment",
-      "file_name": "qos-booking-and-assignment",
       "api_version": "0.1.0",
       "api_title": "QoS Booking and Assignment",
       "commonalities": "0.6",
@@ -8286,7 +8718,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qos-profiles",
-      "file_name": "qos-profiles",
       "api_version": "0.11.0",
       "api_title": "QoS Profiles",
       "commonalities": "0.4",
@@ -8308,7 +8739,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qos-profiles",
-      "file_name": "qos-profiles",
       "api_version": "0.11.1",
       "api_title": "QoS Profiles",
       "commonalities": "0.4",
@@ -8330,7 +8760,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qos-profiles",
-      "file_name": "qos-profiles",
       "api_version": "1.0.0",
       "api_title": "QoS Profiles",
       "commonalities": "0.5",
@@ -8352,7 +8781,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qos-profiles",
-      "file_name": "qos-profiles",
       "api_version": "1.1.0",
       "api_title": "QoS Profiles",
       "commonalities": "0.6",
@@ -8374,7 +8802,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qod-provisioning",
-      "file_name": "qod-provisioning",
       "api_version": "0.1.0",
       "api_title": "QoD Provisioning API",
       "commonalities": "0.4",
@@ -8399,7 +8826,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qod-provisioning",
-      "file_name": "qod-provisioning",
       "api_version": "0.1.1",
       "api_title": "QoD Provisioning API",
       "commonalities": "0.4",
@@ -8424,7 +8850,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qod-provisioning",
-      "file_name": "qod-provisioning",
       "api_version": "0.2.0",
       "api_title": "QoD Provisioning API",
       "commonalities": "0.5",
@@ -8449,7 +8874,6 @@ const ViewerLib = {
     },
     {
       "api_name": "qos-provisioning",
-      "file_name": "qos-provisioning",
       "api_version": "0.3.0",
       "api_title": "QoS Provisioning",
       "commonalities": "0.6",
@@ -8474,7 +8898,6 @@ const ViewerLib = {
     },
     {
       "api_name": "quality-on-demand",
-      "file_name": "quality-on-demand",
       "api_version": "0.11.0",
       "api_title": "Quality-On-Demand",
       "commonalities": "0.4",
@@ -8496,7 +8919,6 @@ const ViewerLib = {
     },
     {
       "api_name": "quality-on-demand",
-      "file_name": "quality-on-demand",
       "api_version": "0.11.1",
       "api_title": "Quality-On-Demand",
       "commonalities": "0.4",
@@ -8518,7 +8940,6 @@ const ViewerLib = {
     },
     {
       "api_name": "quality-on-demand",
-      "file_name": "quality-on-demand",
       "api_version": "1.0.0",
       "api_title": "Quality-On-Demand",
       "commonalities": "0.5",
@@ -8540,7 +8961,6 @@ const ViewerLib = {
     },
     {
       "api_name": "quality-on-demand",
-      "file_name": "quality-on-demand",
       "api_version": "1.1.0",
       "api_title": "Quality-On-Demand",
       "commonalities": "0.6",
@@ -8562,7 +8982,6 @@ const ViewerLib = {
     },
     {
       "api_name": "region-device-count",
-      "file_name": "region-device-count",
       "api_version": "0.1.0",
       "api_title": "Region Device Count",
       "commonalities": "0.5",
@@ -8584,7 +9003,6 @@ const ViewerLib = {
     },
     {
       "api_name": "region-device-count",
-      "file_name": "region-device-count",
       "api_version": "0.2.0",
       "api_title": "Region Device Count",
       "commonalities": "0.6",
@@ -8605,29 +9023,87 @@ const ViewerLib = {
       "release_type": "public-release"
     },
     {
-      "api_name": "release-test",
-      "file_name": "release-test",
-      "api_version": "1.0.0-alpha.1",
-      "api_title": "Release Test",
-      "commonalities": "r4.1",
-      "maturity": "stable",
+      "api_name": "sample-implicit-events",
+      "api_version": "0.1.0-alpha.1",
+      "api_title": "Sample Implicit Events",
+      "commonalities": "0.8.0",
+      "maturity": "initial",
       "portfolio_category": null,
       "website_url": null,
       "tooltip": null,
-      "display_name": "Release Test",
+      "display_name": "Sample Implicit Events",
       "published": true,
-      "canonical_name": "release-test",
+      "canonical_name": "sample-implicit-events",
       "first_release": "Sandbox",
       "repository": "ReleaseTest",
       "release_tag": "r1.1",
-      "release_date": "2026-03-01T16:00:48Z",
-      "meta_release": "None (Sandbox)",
+      "release_date": "2026-05-29T13:39:43Z",
+      "meta_release": "Independent",
       "github_url": "https://github.com/camaraproject/ReleaseTest/releases/tag/r1.1",
       "release_type": "pre-release-alpha"
     },
     {
+      "api_name": "sample-service",
+      "api_version": "0.1.0-alpha.1",
+      "api_title": "Sample Service",
+      "commonalities": "0.8.0",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Sample Service",
+      "published": true,
+      "canonical_name": "sample-service",
+      "first_release": "Sandbox",
+      "repository": "ReleaseTest",
+      "release_tag": "r1.1",
+      "release_date": "2026-05-29T13:39:43Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/ReleaseTest/releases/tag/r1.1",
+      "release_type": "pre-release-alpha"
+    },
+    {
+      "api_name": "sample-service-subscriptions",
+      "api_version": "0.1.0-alpha.1",
+      "api_title": "Sample Service Subscription Template",
+      "commonalities": "0.8.0",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Sample Service Subscription Template",
+      "published": true,
+      "canonical_name": "sample-service-subscriptions",
+      "first_release": "Sandbox",
+      "repository": "ReleaseTest",
+      "release_tag": "r1.1",
+      "release_date": "2026-05-29T13:39:43Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/ReleaseTest/releases/tag/r1.1",
+      "release_type": "pre-release-alpha"
+    },
+    {
+      "api_name": "session-insights",
+      "api_version": "0.1.0-alpha.1",
+      "api_title": "Session Insights",
+      "commonalities": "0.6.1",
+      "maturity": "initial",
+      "portfolio_category": null,
+      "website_url": null,
+      "tooltip": null,
+      "display_name": "Session Insights",
+      "published": true,
+      "canonical_name": "session-insights",
+      "first_release": "Sandbox",
+      "repository": "SessionInsights",
+      "release_tag": "r1.1",
+      "release_date": "2026-05-07T09:55:28Z",
+      "meta_release": "Independent",
+      "github_url": "https://github.com/camaraproject/SessionInsights/releases/tag/r1.1",
+      "release_type": "pre-release-alpha"
+    },
+    {
       "api_name": "simple-edge-discovery",
-      "file_name": "simple-edge-discovery",
       "api_version": "1.0.0",
       "api_title": "Simple Edge Discovery",
       "commonalities": "0.4",
@@ -8649,7 +9125,6 @@ const ViewerLib = {
     },
     {
       "api_name": "simple-edge-discovery",
-      "file_name": "simple-edge-discovery",
       "api_version": "2.0.0",
       "api_title": "Simple Edge Discovery",
       "commonalities": "0.6",
@@ -8670,8 +9145,28 @@ const ViewerLib = {
       "release_type": "public-release"
     },
     {
+      "api_name": "simple-edge-discovery",
+      "api_version": "2.0.1",
+      "api_title": "Simple Edge Discovery",
+      "commonalities": "0.6.1",
+      "maturity": "stable",
+      "portfolio_category": "Computing Services",
+      "website_url": "https://camaraproject.org/simple-edge-discovery/",
+      "tooltip": "Discover the closest edge cloud zone to a given device",
+      "display_name": "Simple Edge Discovery",
+      "published": true,
+      "canonical_name": "simple-edge-discovery",
+      "first_release": "PreFall24",
+      "isNew": false,
+      "repository": "SimpleEdgeDiscovery",
+      "release_tag": "r2.3",
+      "release_date": "2026-04-23T09:19:18Z",
+      "meta_release": "Fall25",
+      "github_url": "https://github.com/camaraproject/SimpleEdgeDiscovery/releases/tag/r2.3",
+      "release_type": "maintenance-release"
+    },
+    {
       "api_name": "sim-swap",
-      "file_name": "sim-swap",
       "api_version": "1.0.0",
       "api_title": "SIM Swap",
       "commonalities": "0.4",
@@ -8693,7 +9188,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap",
-      "file_name": "sim-swap",
       "api_version": "1.0.0",
       "api_title": "SIM Swap",
       "commonalities": "0.4",
@@ -8715,7 +9209,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap",
-      "file_name": "sim-swap",
       "api_version": "1.0.0",
       "api_title": "SIM Swap",
       "commonalities": "0.4",
@@ -8737,7 +9230,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap",
-      "file_name": "sim-swap",
       "api_version": "2.0.0",
       "api_title": "SIM Swap",
       "commonalities": "0.5",
@@ -8759,7 +9251,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap",
-      "file_name": "sim-swap",
       "api_version": "2.1.0",
       "api_title": "SIM Swap",
       "commonalities": "0.6",
@@ -8781,7 +9272,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap",
-      "file_name": "sim-swap",
       "api_version": "2.1.0",
       "api_title": "SIM Swap",
       "commonalities": "0.6",
@@ -8803,7 +9293,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap-subscriptions",
-      "file_name": "sim-swap-subscriptions",
       "api_version": "0.1.0",
       "api_title": "Sim Swap Subscriptions",
       "commonalities": "0.4",
@@ -8825,7 +9314,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap-subscriptions",
-      "file_name": "sim-swap-subscriptions",
       "api_version": "0.1.1",
       "api_title": "Sim Swap Subscriptions",
       "commonalities": "0.4",
@@ -8847,7 +9335,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap-subscriptions",
-      "file_name": "sim-swap-subscriptions",
       "api_version": "0.1.2",
       "api_title": "Sim Swap Subscriptions",
       "commonalities": "0.4",
@@ -8869,7 +9356,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap-subscriptions",
-      "file_name": "sim-swap-subscriptions",
       "api_version": "0.2.0",
       "api_title": "Sim Swap Subscriptions",
       "commonalities": "0.5",
@@ -8891,7 +9377,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap-subscriptions",
-      "file_name": "sim-swap-subscriptions",
       "api_version": "0.3.0",
       "api_title": "Sim Swap Subscriptions",
       "commonalities": "0.6",
@@ -8913,7 +9398,6 @@ const ViewerLib = {
     },
     {
       "api_name": "sim-swap-subscriptions",
-      "file_name": "sim-swap-subscriptions",
       "api_version": "0.3.0",
       "api_title": "Sim Swap Subscriptions",
       "commonalities": "0.6",
@@ -8935,7 +9419,6 @@ const ViewerLib = {
     },
     {
       "api_name": "subscription-status",
-      "file_name": "subscription-status",
       "api_version": "0.1.0",
       "api_title": "SubscriptionStatus",
       "commonalities": "0.6",
@@ -8957,7 +9440,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-tenure",
-      "file_name": "kyc-tenure",
       "api_version": "0.1.0",
       "api_title": "KYC Tenure",
       "commonalities": "0.5",
@@ -8979,7 +9461,6 @@ const ViewerLib = {
     },
     {
       "api_name": "kyc-tenure",
-      "file_name": "kyc-tenure",
       "api_version": "0.2.0",
       "api_title": "KYC Tenure",
       "commonalities": "0.6",
@@ -9001,7 +9482,6 @@ const ViewerLib = {
     },
     {
       "api_name": "traffic-influence",
-      "file_name": "traffic-influence",
       "api_version": "0.10.0",
       "api_title": "Traffic Influence",
       "commonalities": "0.6",
@@ -9023,7 +9503,6 @@ const ViewerLib = {
     },
     {
       "api_name": "brand-registration",
-      "file_name": "brand-registration",
       "api_version": "0.1.0",
       "api_title": "Brand Registration",
       "commonalities": "0.6",
@@ -9045,7 +9524,6 @@ const ViewerLib = {
     },
     {
       "api_name": "verified-caller",
-      "file_name": "verified-caller",
       "api_version": "0.1.0",
       "api_title": "Verified Caller",
       "commonalities": "0.6",
@@ -9067,7 +9545,6 @@ const ViewerLib = {
     },
     {
       "api_name": "webrtc-call-handling",
-      "file_name": "webrtc-call-handling",
       "api_version": "0.2.0",
       "api_title": "WebRTC Call Handling API",
       "commonalities": "0.5",
@@ -9089,7 +9566,6 @@ const ViewerLib = {
     },
     {
       "api_name": "webrtc-call-handling",
-      "file_name": "webrtc-call-handling",
       "api_version": "0.3.0",
       "api_title": "WebRTC Call Handling",
       "commonalities": "0.6",
@@ -9111,7 +9587,6 @@ const ViewerLib = {
     },
     {
       "api_name": "webrtc-events",
-      "file_name": "webrtc-events-subscription",
       "api_version": "0.1.0",
       "api_title": "WebRTC Event Subscription",
       "commonalities": "0.5",
@@ -9133,7 +9608,6 @@ const ViewerLib = {
     },
     {
       "api_name": "webrtc-events",
-      "file_name": "webrtc-events",
       "api_version": "0.2.0",
       "api_title": "WebRTC Events",
       "commonalities": "0.6",
@@ -9155,7 +9629,6 @@ const ViewerLib = {
     },
     {
       "api_name": "webrtc-registration",
-      "file_name": "webrtc-registration",
       "api_version": "0.2.0",
       "api_title": "WebRTC Registration Service API",
       "commonalities": "0.5",
@@ -9177,7 +9650,6 @@ const ViewerLib = {
     },
     {
       "api_name": "webrtc-registration",
-      "file_name": "webrtc-registration",
       "api_version": "0.3.0",
       "api_title": "WebRTC Registration Service",
       "commonalities": "0.6",
@@ -9210,7 +9682,7 @@ const ViewerLib = {
 
     // Meta-release constants
     const META_RELEASES = ['Fall24', 'Spring25', 'Fall25'];
-    const SANDBOX_RELEASE = 'None (Sandbox)';
+    const INDEPENDENT_RELEASE = 'Independent';
 
     /**
      * Initialize iframe detection
@@ -9326,7 +9798,7 @@ const ViewerLib = {
         const firstAPI = versions[0];
         const latestAPI = versions[versions.length - 1];
 
-        // Only include meta-releases (exclude Sandbox)
+        // Only include meta-releases (exclude Independent)
         let metaVersions = versions.filter(v =>
           META_RELEASES.includes(v.meta_release)
         );
@@ -9582,7 +10054,7 @@ const ViewerLib = {
     }
 
     /**
-     * Render meta-release table (excludes Sandbox)
+     * Render meta-release table (excludes Independent)
      */
     function renderMetaReleaseTable() {
       const tableData = createMetaReleaseTableData(filteredData);
@@ -9656,7 +10128,7 @@ const ViewerLib = {
     }
 
     /**
-     * Render API evolution view (includes Sandbox)
+     * Render API evolution view (includes Independent)
      */
     function renderAPIEvolution() {
       let grouped = groupAPIsByName(filteredData);
@@ -9708,12 +10180,12 @@ const ViewerLib = {
           }
 
           const item = document.createElement('div');
-          const isSandbox = version.meta_release === SANDBOX_RELEASE;
-          item.className = `timeline-item ${isSandbox ? 'sandbox' : 'meta-release'}`;
+          const isIndependent = version.meta_release === INDEPENDENT_RELEASE;
+          item.className = `timeline-item ${isIndependent ? 'independent' : 'meta-release'}`;
 
           item.innerHTML = `
             <div>
-              <div class="release-label">${isSandbox ? 'Sandbox' : version.meta_release}</div>
+              <div class="release-label">${version.meta_release}</div>
               <div class="release-version">${version.api_version}</div>
               ${ViewerLib.renderMaturityBadge(version.maturity)}
             </div>
@@ -9731,7 +10203,7 @@ const ViewerLib = {
     }
 
     /**
-     * Render repository view (includes Sandbox)
+     * Render repository view (includes Independent)
      */
     function renderRepositoryView() {
       let grouped = groupAPIsByRepository(filteredData);
@@ -9784,9 +10256,7 @@ const ViewerLib = {
           apiItem.className = 'repo-api-item';
 
           const releaseInfo = versions.map(v => {
-            const isSandbox = v.meta_release === SANDBOX_RELEASE;
-            const label = isSandbox ? 'Sandbox' : v.meta_release;
-            return `${label}: ${v.api_version}`;
+            return `${v.meta_release}: ${v.api_version}`;
           }).join(' → ');
 
           apiItem.innerHTML = `
